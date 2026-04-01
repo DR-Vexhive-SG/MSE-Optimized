@@ -230,14 +230,23 @@ class MarketPatternDatabase:
     to ensure pattern persistence between sessions.
     """
 
-    def __init__(self, db_path: str = "data/patterns/hybrid_pattern_db.pkl.gz"):
-        self.db_path = Path(db_path)
+    def __init__(self, db_path: Optional[str] = "data/patterns/hybrid_pattern_db.pkl.gz"):
+        """
+        Inicializar base de datos de patrones.
+        
+        Args:
+            db_path: Ruta al archivo de persistencia. Si es None, crea DB vacía.
+        """
+        self.db_path = Path(db_path) if db_path else None
         self.stored_patterns: List[MarketStoredPattern] = []
         self.bifurcation_history: Dict[str, MarketBifurcationHistory] = {}
         self.meta_params: Dict[str, float] = {}  # Φ para trading
-        
+
         # Cargar o inicializar
-        self.load_patterns()
+        if self.db_path:
+            self.load_patterns()
+        else:
+            print(f"  [MarketPatternDB] Created EMPTY database (no persistence)")
     
     def load_patterns(self):
         """Cargar patrones desde archivo."""

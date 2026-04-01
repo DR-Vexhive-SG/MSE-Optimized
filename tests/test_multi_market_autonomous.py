@@ -167,12 +167,14 @@ class MultiMarketTester:
             predominant_regime = max(regime_dist, key=regime_dist.get)
 
             # Inicializar componentes
-            # FIX v5.0.2-R: Use shared pattern_db if provided, otherwise create new
+            # FIX v5.0.2-R: Use shared pattern_db if provided, otherwise create new EMPTY db
             if pattern_db is None:
-                pattern_db = MarketPatternDatabase()
+                # 1D.5 FIX: Create EMPTY pattern_db (don't load from file)
+                pattern_db = MarketPatternDatabase(db_path=None)
                 builtin = create_builtin_patterns()
                 for p in builtin:
                     pattern_db.stored_patterns.append(p)
+                print(f"  [WARNING] Created EMPTY pattern_db with {len(pattern_db.stored_patterns)} patterns")
             # Else use the shared pattern_db (patterns accumulate across pairs)
 
             meta_learner = TradingMetaLearner(pattern_db=pattern_db)
