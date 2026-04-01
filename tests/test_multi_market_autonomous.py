@@ -167,6 +167,15 @@ class MultiMarketTester:
             predominant_regime = max(regime_dist, key=regime_dist.get)
 
             # Inicializar componentes
+            # 1D.5 DEBUG: Check if pattern_db is None
+            print(f"\n{'='*60}")
+            print(f"[DEBUG] run_backtest_for_pair: symbol={symbol}")
+            print(f"[DEBUG] pattern_db is None: {pattern_db is None}")
+            if pattern_db is not None:
+                print(f"[DEBUG] pattern_db id: {id(pattern_db)}")
+                print(f"[DEBUG] pattern_db patterns: {len(pattern_db.stored_patterns)}")
+            print(f"{'='*60}")
+            
             # FIX v5.0.2-R: Use shared pattern_db if provided, otherwise create new EMPTY db
             if pattern_db is None:
                 # 1D.5 FIX: Create EMPTY pattern_db (don't load from file)
@@ -369,6 +378,14 @@ class MultiMarketTester:
 
         # FIX v5.0.2-R: Save patterns after all pairs processed (PERSISTENCE)
         try:
+            # 1D.5 FIX: Log instance IDs for debug
+            print(f"\n{'='*60}")
+            print(f"[1D.5 PERSISTENCE DEBUG]")
+            print(f"  self.pattern_db id: {id(self.pattern_db)}")
+            print(f"  Patterns in DB: {len(self.pattern_db.stored_patterns)}")
+            print(f"  Crystallized in DB: {sum(1 for p in self.pattern_db.stored_patterns if p.crystallized)}")
+            print(f"{'='*60}")
+            
             self.pattern_db.save_patterns()
             
             # 1D.2: Prune unproven emergent patterns after each backtest

@@ -82,13 +82,20 @@ class TradingMetaLearner:
                  learning_rate: float = 0.01):
         """
         Inicializar meta learner.
-        
+
         Args:
-            pattern_db: Base de datos de patrones
+            pattern_db: Base de datos de patrones compartida (REQUIRED)
             baseline_decay: Decaimiento exponencial para baseline
             learning_rate: Tasa de aprendizaje para Φ
+            
+        1D.5 FIX: pattern_db MUST be provided - no silent fallback!
         """
-        self.pattern_db = pattern_db or MarketPatternDatabase()
+        # 1D.5 FIX: Raise error if pattern_db is None (prevents instance divergence)
+        if pattern_db is None:
+            raise ValueError("pattern_db MUST be provided to TradingMetaLearner. "
+                           "This prevents multiple instances and ensures persistence.")
+        
+        self.pattern_db = pattern_db
         self.baseline_decay = baseline_decay
         self.learning_rate = learning_rate
         
@@ -509,6 +516,8 @@ class TradingMetaLearner:
                     pattern.crystallized = True
                     pattern.is_soft = False
                     print(f"[MetaLearner DEBUG] Pattern {pattern_id}: CRYSTALLIZED!")
+                    print(f"[MetaLearner DEBUG] self.pattern_db id: {id(self.pattern_db)}")
+                    print(f"[MetaLearner DEBUG] Crystallized in DB: {sum(1 for p in self.pattern_db.stored_patterns if p.crystallized)}")
 
                 break
 
