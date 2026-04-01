@@ -504,8 +504,8 @@ class TradingMetaLearner:
                 # [DEBUG] Log pattern update
                 print(f"[MetaLearner DEBUG] Pattern {pattern_id}: confidence {initial_conf:.3f} → {pattern.confidence:.3f} (Δ={pattern.confidence - initial_conf:+.3f}), pnl_pct={pnl_pct:+.4f}")
 
-                # Verificar cristalización (Q4) - 1D.5 FIX: Usar CRYSTALLIZATION_THRESHOLD=0.70
-                if pattern.confidence > 0.70 and not pattern.crystallized:
+                # Verificar cristalización (Q4) - 1D.5 DEBUG: Revert to 1B.16 baseline (0.95)
+                if pattern.confidence > 0.95 and not pattern.crystallized:
                     pattern.crystallized = True
                     pattern.is_soft = False
                     print(f"[MetaLearner DEBUG] Pattern {pattern_id}: CRYSTALLIZED!")

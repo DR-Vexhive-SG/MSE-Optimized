@@ -38,13 +38,13 @@ from src.python.market.time_series_state import TimeSeriesState
 
 
 # ============================================================================
-# CONSTANTES - PARÁMETROS DE TRADING (1D.4)
+# CONSTANTES - PARÁMETROS DE TRADING (1D.5 DEBUG: Revert to 1B.16 baseline)
 # ============================================================================
 RANGE_ENTRY_THRESHOLD = 0.02  # 2% desviación desde límite de rango
 RANGE_WIDTH_MAX = 0.05  # 5% ancho máximo de rango para régimen LATERAL
-CRYSTALLIZATION_THRESHOLD = 0.70  # 1C.11: Umbral de cristalización (era 0.95)
+CRYSTALLIZATION_THRESHOLD = 0.95  # 1D.5 DEBUG: 0.70 → 0.95 (1B.16 baseline - higher quality)
 CONFIDENCE_FLOOR = 0.10  # 1C.11: Piso de confianza (previene degradación)
-DELTA_PLUS = 0.20  # 1D.3: Tasa de aprendizaje para éxitos (era 0.15)
+DELTA_PLUS = 0.15  # 1D.5 DEBUG: 0.20 → 0.15 (1B.16 baseline - more stable)
 DELTA_MINUS = 0.15  # 1C.11: Tasa de aprendizaje para fracasos
 
 
@@ -820,8 +820,8 @@ def create_builtin_patterns() -> List[MarketStoredPattern]:
             'volatility_max': 0.03
         },
         entry_signal='buy',
-        stop_loss_pct=0.02,  # 1C.9: 2.5% → 2.0% (tighter SL)
-        take_profit_pct=0.03,  # 1C.9: 2.5% → 3.0% (higher target, ratio 1.5)
+        stop_loss_pct=0.015,  # 1D.5 DEBUG: 2.0% → 1.5% (1B.16 baseline)
+        take_profit_pct=0.015,  # 1D.5 DEBUG: 3.0% → 1.5% (1B.16 baseline - easier to reach)
         confidence=0.65,  # Maintain 0.65 (más margen sobre trigger 0.40)
         complexity=3.0
     ))
@@ -838,8 +838,8 @@ def create_builtin_patterns() -> List[MarketStoredPattern]:
             'volatility_max': 0.03
         },
         entry_signal='sell',
-        stop_loss_pct=0.02,  # 1C.9: 2.5% → 2.0% (tighter SL)
-        take_profit_pct=0.03,  # 1C.9: 2.5% → 3.0% (higher target, ratio 1.5)
+        stop_loss_pct=0.015,  # 1D.5 DEBUG: 2.0% → 1.5% (1B.16 baseline)
+        take_profit_pct=0.015,  # 1D.5 DEBUG: 3.0% → 1.5% (1B.16 baseline - easier to reach)
         confidence=0.65,  # Maintain 0.65 (más margen sobre trigger 0.40)
         complexity=3.0
     ))
