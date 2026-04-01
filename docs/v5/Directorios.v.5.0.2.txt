@@ -1,0 +1,183 @@
+/home/padmin/Proyectos MSE/MSE-Optimized
+├── benchmark
+│   ├── investigate_backtracks.py
+│   └── measure_baseline_etapa0.py
+├── CMakeLists.txt
+├── data
+│   ├── baseline_etapa_0.json
+│   ├── baseline_etapa_0_real.json
+│   ├── diagnostic_report.json
+│   ├── investigation_report.json
+│   ├── market
+│   │   ├── Bitfinex_AXSUST_1h.csv
+│   │   ├── Bitfinex_DOTUST_1h.csv
+│   │   ├── Bitfinex_ETPUSD_minute.csv
+│   │   ├── Bitfinex_NEOJPY_minute.csv
+│   │   ├── Bitfinex_NEOUSD_minute.csv
+│   │   ├── Bitfinex_OMGUSD_minute.csv
+│   │   ├── Bitfinex_REPBTC_minute.csv
+│   │   ├── Bitfinex_REPUSD_minute.csv
+│   │   ├── Bitfinex_XMRUSD_minute.csv
+│   │   └── Bitfinex_XRPBTC_minute.csv
+│   ├── meta_learner
+│   │   ├── curriculum_meta_params.pkl.gz
+│   │   ├── new_training_meta_params.pkl.gz
+│   │   └── variational_meta_params.pkl.gz
+│   └── patterns
+│       ├── hybrid_pattern_db.pkl.gz
+│       ├── new_training_db.pkl.gz
+│       ├── pattern_db.pkl.gz
+│       ├── test_cross_session_db.pkl.gz
+│       ├── test_diagnostic_db.pkl.gz
+│       ├── test_meta_sync_db.pkl.gz
+│       └── test_parameter_persistence_db.pkl.gz
+├── diagnostic_post_fix.log
+├── docs
+│   ├── memoria.json
+│   ├── v1
+│   │   ├── MSE Formal Logic.txt
+│   │   ├── Qwen__20260204_MSE_flux.txt
+│   │   ├── Qwen-Metodo Logico de Prediccion Sudoku Completo.txt
+│   │   └── V.1.0.0.1.txt
+│   ├── v.2
+│   │   └── MSE Log compressed.txt
+│   ├── v3
+│   │   ├── Directorio 09⁄02⁄2026.txt
+│   │   ├── Etapa 1.txt
+│   │   ├── Etapa 2.txt
+│   │   ├── Etapa 3.txt
+│   │   └── Etapas.txt
+│   ├── v4
+│   │   ├── ajustes necesarios.txt
+│   │   ├── branch_selector.txt
+│   │   ├── changelog_v4.0.1.md
+│   │   ├── Directorios.v.4.0.txt
+│   │   ├── Etapas MSE-V.4.0.txt
+│   │   ├── evolutionary_loop.txt
+│   │   ├── evolutionary_solver_v4.txt
+│   │   ├── math_patch.txt
+│   │   ├── MSE v5.0-R (Research).txt
+│   │   ├── MSE-V .4.0 Formal Logic.txt
+│   │   ├── MSE-V .5.0 Formal Logic.txt
+│   │   ├── pattern_database.txt
+│   │   ├── pattern_learner.txt
+│   │   ├── resumen_paquete_1_2.txt
+│   │   ├── src_modules_description.txt
+│   │   └── variational_meta_learner_v4.txt
+│   └── v5
+│       ├── Directorios.v.5.0.2.txt
+│       ├── ESPECIFICACIÓN FORMAL v5.0.1-R.txt
+│       ├── Especificación Técnica v5.0.2-R_ El Marco Formal del Método de Razonamiento Evolutivo (MSE).pdf
+│       ├── FF_IMPLEMENTATION_REPORT.md
+│       ├── MANUAL OFICIAL DEL MÉTODO DE RAZONAMIENTO EVOLUTIVO (MSE).txt
+│       ├── MEMORIA_PERSISTENTE_IMPLEMENTACION.md
+│       ├── MSE v5.0.2-R (Research Consolidated).txt
+│       └── system-input.txt
+├── investigation_output.log
+├── logs
+│   ├── multi_market_autonomous_results.json
+│   ├── test_output.log
+│   ├── test_output_post_ajustes.log
+│   └── top_lateral_pairs.json
+├── Mejoras
+│   ├── DSk.v.1.txt
+│   ├── Ecuaciones variables.txt
+│   ├── Pensamiento.txt
+│   ├── Plan de accion.txt
+│   └── Qwen-Metodo Logico de Prediccion Sudoku Completo.txt
+├── README.md
+├── requirements.txt
+├── resumen.txt
+├── src
+│   ├── data
+│   │   └── patterns
+│   │       ├── benchmark_db.pkl.gz
+│   │       └── stress_test_facil.pkl.gz
+│   └── python
+│       ├── core
+│       │   ├── cell_mapper.py
+│       │   └── meta_meta_parameters.py
+│       ├── evolution
+│       │   ├── branch_selector.py
+│       │   ├── branch_selector.py.empty_backup
+│       │   ├── evolutionary_loop.py
+│       │   ├── evolutionary_loop.py.backup_before_update
+│       │   ├── evolutionary_loop.py.WRONG_VERSION
+│       │   └── forward_forward.py
+│       ├── knowledge
+│       │   ├── logical_pattern.py
+│       │   └── translator.py
+│       ├── learning
+│       │   ├── meta_optimizer.py
+│       │   ├── pattern_learner.py
+│       │   └── variational_meta_learner.py
+│       ├── market
+│       │   ├── axioms.py
+│       │   ├── axiom_validator.py
+│       │   ├── __init__.py
+│       │   ├── market_pattern_database.py
+│       │   ├── meta
+│       │   │   ├── forward_forward.py
+│       │   │   └── trading_meta_learner.py
+│       │   ├── structural_induction.py
+│       │   ├── time_series_state.py
+│       │   └── trading_bot.py
+│       ├── meta
+│       │   ├── gradient_estimator.py
+│       │   ├── __init__.py
+│       │   ├── lagrangian_optimizer.py
+│       │   ├── meta_integration.py
+│       │   ├── parameter_controller.py
+│       │   └── variational_optimizer.py
+│       ├── metapatterns
+│       │   └── structural_induction.py
+│       ├── patterns
+│       │   ├── common_types.py
+│       │   ├── gpu_pattern_manager.py
+│       │   ├── pattern_applicator.py
+│       │   └── pattern_detector.py
+│       ├── persistence
+│       │   └── pattern_database.py
+│       ├── policy
+│       │   └── hierarchical_policy.py
+│       ├── predicates
+│       │   ├── __init__.py
+│       │   └── unit_propagator.py
+│       ├── solver
+│       │   ├── cpu_fallback.py
+│       │   ├── evolutionary_solver.py
+│       │   ├── evolutionary_solver.py.before_loop_extraction
+│       │   └── evolutionary_solver.py.before_policy_integration
+│       ├── state
+│       │   ├── board_state.py
+│       │   └── __init__.py
+│       └── utils
+│           └── stats_tracker.py
+├── test06_output.log
+└── tests
+    ├── test_baseline_backtracks.py
+    ├── test_closed_loop.py
+    ├── test_cross_session_learning.py
+    ├── test_full_resolution.py
+    ├── test_hybrid_matching.py
+    ├── test_lateral_triggers.py
+    ├── test_logical_graph.py
+    ├── test_market_axioms_reclassified.py
+    ├── test_meta_learner_sync.py
+    ├── test_meta_modules.py
+    ├── test_migration_integrity.py
+    ├── test_multi_market_autonomous.py
+    ├── test_multi_market.py
+    ├── test_orchestrator_delegation.py
+    ├── test_pattern_db_integrity.py
+    ├── test_pattern_diversity.py
+    ├── test_pattern_learner.py
+    ├── test_policy_reinforce.py
+    ├── test_predicate_soundness.py
+    ├── test_soundness_verification.py
+    ├── test_state_engine.py
+    ├── test_structural_induction.py
+    ├── test_system_diagnostic.py
+    └── test_v5_validation.py
+
+34 directories, 147 files

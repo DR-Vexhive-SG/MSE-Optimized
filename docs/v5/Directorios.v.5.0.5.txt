@@ -1,0 +1,353 @@
+/home/padmin/Proyectos MSE/MSE-Optimized
+├── analisis_calidad.py
+├── benchmark
+│   ├── investigate_backtracks.py
+│   └── measure_baseline_etapa0.py
+├── CMakeLists.txt
+├── data
+│   ├── baseline_etapa_0.json
+│   ├── baseline_etapa_0_real.json
+│   ├── diagnostic_report.json
+│   ├── investigation_report.json
+│   ├── market
+│   │   ├── Bitfinex_AXSUST_1h.csv
+│   │   ├── Bitfinex_DOTUST_1h.csv
+│   │   ├── Bitfinex_ETPUSD_minute.csv
+│   │   ├── Bitfinex_NEOJPY_minute.csv
+│   │   ├── Bitfinex_NEOUSD_minute.csv
+│   │   ├── Bitfinex_OMGUSD_minute.csv
+│   │   ├── Bitfinex_REPBTC_minute.csv
+│   │   ├── Bitfinex_REPUSD_minute.csv
+│   │   ├── Bitfinex_XMRUSD_minute.csv
+│   │   └── Bitfinex_XRPBTC_minute.csv
+│   ├── meta_learner
+│   │   ├── curriculum_meta_params.pkl.gz
+│   │   ├── new_training_meta_params.pkl.gz
+│   │   └── variational_meta_params.pkl.gz
+│   └── patterns
+│       ├── hybrid_pattern_db.pkl.gz
+│       ├── hybrid_pattern_db.pkl.gz.1c7_backup
+│       ├── hybrid_pattern_db.pkl.gz.corrupted_backup
+│       ├── meta_policy.pkl
+│       ├── new_training_db.pkl.gz
+│       ├── pattern_db.pkl.gz
+│       ├── test_cross_session_db.pkl.gz
+│       ├── test_diagnostic_db.pkl.gz
+│       ├── test_meta_sync_db.pkl.gz
+│       └── test_parameter_persistence_db.pkl.gz
+├── diagnostic_post_fix.log
+├── docs
+│   ├── 1B.10_fixes_summary.md
+│   ├── ARCHIVOS_OBSOLETOS.md
+│   ├── iterations
+│   │   └── 1B.12_executive_summary.md
+│   ├── memoria.json
+│   ├── v1
+│   │   ├── MSE Formal Logic.txt
+│   │   ├── Qwen__20260204_MSE_flux.txt
+│   │   ├── Qwen-Metodo Logico de Prediccion Sudoku Completo.txt
+│   │   └── V.1.0.0.1.txt
+│   ├── v.2
+│   │   └── MSE Log compressed.txt
+│   ├── v3
+│   │   ├── Directorio 09⁄02⁄2026.txt
+│   │   ├── Etapa 1.txt
+│   │   ├── Etapa 2.txt
+│   │   ├── Etapa 3.txt
+│   │   └── Etapas.txt
+│   ├── v4
+│   │   ├── ajustes necesarios.txt
+│   │   ├── branch_selector.txt
+│   │   ├── changelog_v4.0.1.md
+│   │   ├── Directorios.v.4.0.txt
+│   │   ├── Etapas MSE-V.4.0.txt
+│   │   ├── evolutionary_loop.txt
+│   │   ├── evolutionary_solver_v4.txt
+│   │   ├── math_patch.txt
+│   │   ├── MSE v5.0-R (Research).txt
+│   │   ├── MSE-V .4.0 Formal Logic.txt
+│   │   ├── MSE-V .5.0 Formal Logic.txt
+│   │   ├── pattern_database.txt
+│   │   ├── pattern_learner.txt
+│   │   ├── resumen_paquete_1_2.txt
+│   │   ├── src_modules_description.txt
+│   │   └── variational_meta_learner_v4.txt
+│   └── v5
+│       ├── 1C.7_PATTERN_CALIBRATION_PLAN.md
+│       ├── 1C.8_CALIBRATION_RESULTS.md
+│       ├── 1C.9_EXECUTION_REPORT.md
+│       ├── 1D.1_FINE_TUNING_PLAN.md
+│       ├── 1D.1_PATTERN_QUALITY_REPORT.md
+│       ├── 1D.2_DATA_DRIVEN_FINE_TUNING.md
+│       ├── 1D.3_COMPLETE_IMPROVEMENT_PLAN.md
+│       ├── AJUSTES_EXPERIMENTALES_FASE1B.md
+│       ├── CRYSTALLIZATION_FIX_REPORT.md
+│       ├── Directorios.v.5.0.2.txt
+│       ├── Directorios.v.5.0.5.txt
+│       ├── ESPECIFICACIÓN FORMAL v5.0.1-R.txt
+│       ├── Especificación Técnica v5.0.2-R_ El Marco Formal del Método de Razonamiento Evolutivo (MSE).pdf
+│       ├── FF_IMPLEMENTATION_REPORT.md
+│       ├── MANUAL DE TRADING ALGORÍTMICO MSE v5.0.2-R (ACTUALIZADO CON 1B.7).txt
+│       ├── MANUAL OFICIAL DEL MÉTODO DE RAZONAMIENTO EVOLUTIVO (MSE).txt
+│       ├── MEMORIA_PERSISTENTE_IMPLEMENTACION.md
+│       ├── META_STATE_COMPRESSED CONSOLIDADO.txt
+│       ├── MSE v5.0.2-R (Research Consolidated).txt
+│       ├── MULTI_RUN_ACCUMULATION_VALIDATION.md
+│       ├── MULTI_RUN_CRYSTALLIZATION_VALIDATION.md
+│       ├── PATTERN_CATALOG.md
+│       ├── PATTERN_PERSISTENCE_ANALYSIS.md
+│       ├── PHASE_1C_COMPLETE_FIX_SUMMARY.md
+│       ├── PHASE_1C_COMPREHENSIVE_REPORT.md
+│       ├── PHASE_1C_ENTRY_DOCUMENT.md
+│       ├── PHASE_1C_FINAL_COMPLETE.md
+│       ├── PHASE_1C_FINAL_REPORT.md
+│       ├── PHASE_1C_FINAL_STATUS.md
+│       ├── PHASE_1C_STATUS_SUMMARY.md
+│       ├── PHASE_1D_ENTRY_DOCUMENT.md
+│       ├── REINFORCE_FIX_REPORT.md
+│       ├── RESUMEN_EJECUTIVO_1B.4.md
+│       ├── system-input.txt
+│       ├── VALIDATION_WITH_FIXES_REPORT.md
+│       └── waivers
+│           ├── W-CA4-001-Sharpe.md
+│           ├── W-CA5-001-Drawdown.md
+│           └── W-CA6-001-Violations.md
+├── investigation_output.log
+├── logs
+│   ├── 1B.10_fixes_applied.json
+│   ├── 1B.10_metrics.json
+│   ├── 1B.10_validation_results.json
+│   ├── 1B.11_executive_summary.md
+│   ├── 1B.11_metrics.json
+│   ├── 1B.11_validation_results.json
+│   ├── 1B.12_changes_applied.json
+│   ├── 1B.5_changes_applied.json
+│   ├── 1B.5_validation_results.json
+│   ├── 1B.6_regime_fix_applied.json
+│   ├── 1B.7_validation_results.json
+│   ├── 1B.8_code_changes.json
+│   ├── 1B.8_executive_summary.md
+│   ├── 1B.8_metrics.json
+│   ├── 1B.8_validation_results.json
+│   ├── 1B.9_code_changes.json
+│   ├── 1B.9_debug_history.log
+│   ├── 1B.9_debug_induction.log
+│   ├── 1B.9_debug_signature.log
+│   ├── 1B.9_debug_variance.log
+│   ├── 1B.9_executive_summary.md
+│   ├── 1B.9_metrics.json
+│   ├── 1B.9_root_cause_analysis.md
+│   ├── 1C.10_full.log
+│   ├── 1C.11_full.log
+│   ├── 1C.2_complete.log
+│   ├── 1C.2_debug_fixed.log
+│   ├── 1C.2_debug.log
+│   ├── 1C.2_final_debug_report.md
+│   ├── 1C.2_final.log
+│   ├── 1C.2_fixed.log
+│   ├── 1C.2_test_output.log
+│   ├── 1C.3_debug_report.md
+│   ├── 1C.3_test_output.log
+│   ├── 1C.9_debug_report.md
+│   ├── 1D.1_CRYSTALLIZATION_DEBUG.md
+│   ├── 1D.1_pattern_quality_analysis.json
+│   ├── axsust_violation_analysis_1B.12.md
+│   ├── axsust_violation_analysis_1B.16.md
+│   ├── comparison_1B3_vs_1B4.json
+│   ├── debug_agent_analysis_1B4.json
+│   ├── debug_analysis_1B.11.json
+│   ├── debug_analysis_1B.12_AXSUST.json
+│   ├── debug_analysis_1B.16_AXSUST.json
+│   ├── debug_analysis_1C.2.json
+│   ├── debug_analysis_1C.3.json
+│   ├── debug_analysis_1C.9.json
+│   ├── debug_analysis_pattern_persistence.json
+│   ├── debug_direction_analysis.json
+│   ├── debug_report_1B4.md
+│   ├── gpu_acceleration_analysis.json
+│   ├── gpu_acceleration_summary.md
+│   ├── iteration_1B.10
+│   │   └── consolidated_report.md
+│   ├── iteration_1B.4
+│   │   └── consolidated_report.md
+│   ├── iteration_1B.6
+│   │   └── consolidated_report.md
+│   ├── iteration_1B.8
+│   │   └── consolidated_report.md
+│   ├── iteration_1B.9
+│   │   └── consolidated_report.md
+│   ├── multi_market_autonomous_results.json
+│   ├── multi_run_accumulation_plan.json
+│   ├── multi_run_accumulation_results.json
+│   ├── multi_run_validation_plan.json
+│   ├── phase_1c_entry_summary.json
+│   ├── reinforce_complete_diagnostic.md
+│   ├── reinforce_debug_analysis.json
+│   ├── reinforce_fix_summary.md
+│   ├── strategy_weights_debug_analysis.md
+│   ├── strategy_weights_debug.log
+│   ├── strategy_weights_debug_run2.log
+│   ├── strategy_weights_debug_run3.log
+│   ├── strategy_weights_final_report.md
+│   ├── test_1C.4_full.log
+│   ├── test_1C.4_output.log
+│   ├── test_1C.5_full.log
+│   ├── test_1C.6_full.log
+│   ├── test_output_1B.10_full.log
+│   ├── test_output_1B.10.log
+│   ├── test_output_1B.11_fresh.log
+│   ├── test_output_1B.11.log
+│   ├── test_output_1B11.log
+│   ├── test_output_1B.12.log
+│   ├── test_output_1B.13.log
+│   ├── test_output_1B.13_run2.log
+│   ├── test_output_1B.14.log
+│   ├── test_output_1B.15.log
+│   ├── test_output_1B.16.log
+│   ├── test_output_1B1.log
+│   ├── test_output_1B2.log
+│   ├── test_output_1B.5.log
+│   ├── test_output_1B.7_final.log
+│   ├── test_output_1B.7_fixed.log
+│   ├── test_output_1B.7.log
+│   ├── test_output_1B.7_v2.log
+│   ├── test_output_1B.8.log
+│   ├── test_output_1B.9.log
+│   ├── test_output_1C.10_balance.log
+│   ├── test_output_1C.10_clean.log
+│   ├── test_output_1C.12_run1.log
+│   ├── test_output_1C.12_run2_fixed.log
+│   ├── test_output_1C.13_validation.log
+│   ├── test_output_1C.14_final_validation.log
+│   ├── test_output_1C.15_FINAL.log
+│   ├── test_output_1C.16_CLEAN.log
+│   ├── test_output_1C.17_FINAL.log
+│   ├── test_output_1C.3.log
+│   ├── test_output_1C.5.log
+│   ├── test_output_1C.6.log
+│   ├── test_output_1C.7_pattern_enrichment.log
+│   ├── test_output_1C.8_calibrated.log
+│   ├── test_output_1C.9_finetuned.log
+│   ├── test_output_1C.9_full.log
+│   ├── test_output_1C.9.log
+│   ├── test_output_1D.2_validation.log
+│   ├── test_output.log
+│   ├── test_output_pattern_persistence.log
+│   ├── test_output_phase1_dotust.log
+│   ├── test_output_post_ajustes.log
+│   ├── test_output_post_fix.log
+│   ├── test_output_run1_accumulation.log
+│   ├── test_output_run1_fixed.log
+│   ├── test_output_run1.log
+│   ├── test_output_run2_accumulation.log
+│   ├── test_output_run2.log
+│   ├── test_output_run3.log
+│   ├── top_lateral_pairs.json
+│   └── trading_agent_adjustments.txt
+├── Mejoras
+│   ├── DSk.v.1.txt
+│   ├── Ecuaciones variables.txt
+│   ├── Pensamiento.txt
+│   ├── Plan de accion.txt
+│   └── Qwen-Metodo Logico de Prediccion Sudoku Completo.txt
+├── README.md
+├── requirements.txt
+├── resumen.txt
+├── scripts
+│   └── debug_direction_analysis.py
+├── src
+│   ├── data
+│   │   └── patterns
+│   │       ├── benchmark_db.pkl.gz
+│   │       └── stress_test_facil.pkl.gz
+│   └── python
+│       ├── core
+│       │   ├── cell_mapper.py
+│       │   └── meta_meta_parameters.py
+│       ├── evolution
+│       │   ├── branch_selector.py
+│       │   ├── branch_selector.py.empty_backup
+│       │   ├── evolutionary_loop.py
+│       │   ├── evolutionary_loop.py.backup_before_update
+│       │   ├── evolutionary_loop.py.WRONG_VERSION
+│       │   └── forward_forward.py
+│       ├── knowledge
+│       │   ├── logical_pattern.py
+│       │   └── translator.py
+│       ├── learning
+│       │   ├── meta_optimizer.py
+│       │   ├── pattern_learner.py
+│       │   └── variational_meta_learner.py
+│       ├── market
+│       │   ├── axioms.py
+│       │   ├── axiom_validator.py
+│       │   ├── __init__.py
+│       │   ├── market_pattern_database.py
+│       │   ├── meta
+│       │   │   ├── forward_forward.py
+│       │   │   └── trading_meta_learner.py
+│       │   ├── regime_validator.py
+│       │   ├── structural_induction.py
+│       │   ├── time_series_state.py
+│       │   └── trading_bot.py
+│       ├── meta
+│       │   ├── gradient_estimator.py
+│       │   ├── __init__.py
+│       │   ├── lagrangian_optimizer.py
+│       │   ├── meta_integration.py
+│       │   ├── parameter_controller.py
+│       │   └── variational_optimizer.py
+│       ├── metapatterns
+│       │   └── structural_induction.py
+│       ├── patterns
+│       │   ├── common_types.py
+│       │   ├── gpu_pattern_manager.py
+│       │   ├── pattern_applicator.py
+│       │   └── pattern_detector.py
+│       ├── persistence
+│       │   └── pattern_database.py
+│       ├── policy
+│       │   └── hierarchical_policy.py
+│       ├── predicates
+│       │   ├── __init__.py
+│       │   └── unit_propagator.py
+│       ├── solver
+│       │   ├── cpu_fallback.py
+│       │   ├── evolutionary_solver.py
+│       │   ├── evolutionary_solver.py.before_loop_extraction
+│       │   └── evolutionary_solver.py.before_policy_integration
+│       ├── state
+│       │   ├── board_state.py
+│       │   └── __init__.py
+│       └── utils
+│           └── stats_tracker.py
+├── test06_output.log
+└── tests
+    ├── test_1b10_nan_fix.py
+    ├── test_baseline_backtracks.py
+    ├── test_closed_loop.py
+    ├── test_cross_session_learning.py
+    ├── test_full_resolution.py
+    ├── test_hybrid_matching.py
+    ├── test_lateral_triggers.py
+    ├── test_logical_graph.py
+    ├── test_market_axioms_reclassified.py
+    ├── test_meta_learner_sync.py
+    ├── test_meta_modules.py
+    ├── test_migration_integrity.py
+    ├── test_multi_market_autonomous.py
+    ├── test_multi_market.py
+    ├── test_orchestrator_delegation.py
+    ├── test_pattern_db_integrity.py
+    ├── test_pattern_diversity.py
+    ├── test_pattern_learner.py
+    ├── test_policy_reinforce.py
+    ├── test_predicate_soundness.py
+    ├── test_soundness_verification.py
+    ├── test_state_engine.py
+    ├── test_structural_induction.py
+    ├── test_system_diagnostic.py
+    ├── test_trading_adjustments_phase1.py
+    └── test_v5_validation.py
+
+42 directories, 309 files
