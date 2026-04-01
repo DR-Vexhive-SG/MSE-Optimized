@@ -139,7 +139,7 @@ class MarketStoredPattern:
             else:
                 self.episodes_without_improvement += 1
 
-    def check_crystallization(self, threshold: float = 0.70) -> bool:
+    def check_crystallization(self, threshold: float = 0.95) -> bool:  # 1D.5 DEBUG: 0.70 → 0.95 (1B.16 baseline)
         """
         Q4: Verificar si debe cristalizar.
 
@@ -593,7 +593,7 @@ class MarketPatternDatabase:
         CRITICAL FIX: Uses new threshold 0.70 (was 0.95) for crystallization check.
         """
         pattern.update_effectiveness(success)
-        pattern.check_crystallization(threshold=0.70)  # CRITICAL FIX: 0.95 → 0.70
+        pattern.check_crystallization(threshold=0.95)  # CRITICAL FIX: 0.95 → 0.70
     
     def update_bifurcation_history(self, action: str, regime: MarketRegime,
                                   success: bool, depth: int = 1):
@@ -673,7 +673,7 @@ class MarketPatternDatabase:
         # Paso 1: Verificar cristalización (CRITICAL FIX: 0.95 → 0.70)
         crystallized_count = 0
         for pattern in self.stored_patterns:
-            if pattern.check_crystallization(threshold=0.70):  # CRITICAL FIX: 0.95 → 0.70
+            if pattern.check_crystallization(threshold=0.95):  # CRITICAL FIX: 0.95 → 0.70
                 crystallized_count += 1
 
         if crystallized_count > 0:
@@ -1077,7 +1077,7 @@ if __name__ == "__main__":
     # CRITICAL FIX: Threshold changed from 0.95 to 0.70
     # Forzar confianza alta
     pattern.confidence = 0.71
-    cristalizo = pattern.check_crystallization(threshold=0.70)
+    cristalizo = pattern.check_crystallization(threshold=0.95)
     print(f"  Cristalizado: {cristalizo}")
     assert cristalizo == True, "Debe cristalizar"
     print("  ✓ PASSED")
