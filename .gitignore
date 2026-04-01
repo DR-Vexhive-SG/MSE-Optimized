@@ -46,8 +46,9 @@ docs/v2/
 docs/v3/
 docs/v4/
 
-# Scripts archive
-scripts/archive/
+# Scripts archive (keep directory, ignore contents)
+scripts/archive/*
+!scripts/archive/.gitkeep
 
 # OS
 .DS_Store
