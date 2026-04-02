@@ -667,7 +667,7 @@ class TradingBotAutonomous(TradingBot):
         self.range_tolerance = kwargs.get('range_tolerance', 0.025)  # ANTES: 0.01
 
         # S13: Triple Barrera - Tiempo máximo de posición
-        self.max_holding_bars = kwargs.get('max_holding_bars', 50)  # NUEVO
+        self.max_holding_bars = kwargs.get('max_holding_bars', 200)  # 1D.6 FIX: 50 → 200 (4x más tiempo para patrones)
 
         # 1C.9: Trigger de E(pt) para Win Rate Optimization (filter low-quality patterns)
         # 1C.10: Balance quality vs quantity (0.55 → 0.50)
