@@ -396,35 +396,44 @@ class MarketStructuralInduction:
     def _features_to_conditions(self, features: Dict[str, float]) -> Dict[str, float]:
         """
         Convertir características a condiciones de trigger.
-        
+
+        1D.7 FIX: Asegurar que SIEMPRE haya al menos UN trigger válido
+        para evitar que any_trigger_matched=False en _check_trigger_conditions().
+
         Args:
             features: Características del patrón
-        
+
         Returns:
             Diccionario de condiciones para MarketStoredPattern
         """
         conditions = {}
-        
+
         # Volatilidad
         if 'volatility_20' in features:
             conditions['volatility_min'] = features['volatility_20'] * 0.8
             conditions['volatility_max'] = features['volatility_20'] * 1.2
-        
+
         # Volumen
         if 'volume_ratio' in features:
             conditions['volume_ratio_min'] = features['volume_ratio'] * 0.9
-        
+
         # Posición en rango
         if 'price_position' in features:
             conditions['price_position'] = features['price_position']
-        
+
         # Tendencia
         if 'trend_slope' in features:
             if features['trend_slope'] > 0.001:
                 conditions['trend_slope_min'] = 0.0005
             elif features['trend_slope'] < -0.001:
                 conditions['trend_slope_max'] = -0.0005
-        
+
+        # 1D.7 FIX: Si no hay triggers, agregar triggers genéricos por defecto
+        # Esto asegura que any_trigger_matched=True en _check_trigger_conditions()
+        if not conditions:
+            conditions['volatility_max'] = 0.10  # Volatilidad máxima 10% (genérico)
+            conditions['volume_ratio_min'] = 0.5  # Volumen mínimo 50% del promedio (genérico)
+
         return conditions
     
     def validate_axiomatic_soundness(self, pattern: EmergentPattern,

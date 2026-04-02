@@ -860,12 +860,60 @@ class TradingBotAutonomous(TradingBot):
             print(f"[Triple Barrera] 🛑 SL HIT: PnL={pnl_pct:.2f}% <= {-position.stop_loss_pct*100:.2f}%")
             return 'SL_HIT', bars_held
 
-        # Barrera 3: Tiempo Máximo (NUEVO)
-        if bars_held >= self.max_holding_bars:
-            print(f"[Triple Barrera] ⏰ TIME EXIT: {bars_held} >= {self.max_holding_bars} barras")
+        # Barrera 3: Tiempo Máximo (NUEVO) - 1D.7: Dinámico basado en confianza y volatilidad
+        max_bars = self.calculate_dynamic_max_holding_bars()
+        if bars_held >= max_bars:
+            print(f"[Triple Barrera] ⏰ TIME EXIT DINÁMICO: {bars_held} >= {max_bars} barras (conf={self.get_current_pattern_confidence():.2f}, vol={self.get_current_volatility():.2%})")
             return 'TIME_EXIT', bars_held
 
         return 'HOLD', bars_held
+
+    def calculate_dynamic_max_holding_bars(self) -> int:
+        """
+        1D.7 FIX: Calcular tiempo máximo de posición dinámicamente.
+        
+        Fórmula: base * confidence_multiplier * volatility_multiplier
+        
+        Returns:
+            int: Barras máximas dinámicas
+        """
+        # Base por régimen
+        base = self.max_holding_bars
+        
+        # Multiplicador por confianza del patrón actual
+        confidence = self.get_current_pattern_confidence()
+        if confidence >= 0.90:
+            confidence_mult = 1.5  # Alta confianza: más tiempo
+        elif confidence >= 0.70:
+            confidence_mult = 1.0  # Confianza media: tiempo normal
+        else:
+            confidence_mult = 0.7  # Baja confianza: menos tiempo
+        
+        # Multiplicador por volatilidad
+        volatility = self.get_current_volatility()
+        if volatility > 0.05:
+            vol_mult = 0.7  # Alta volatilidad: menos tiempo (más riesgo)
+        elif volatility > 0.02:
+            vol_mult = 1.0  # Volatilidad normal
+        else:
+            vol_mult = 1.2  # Baja volatilidad: más tiempo
+        
+        return int(base * confidence_mult * vol_mult)
+
+    def get_current_pattern_confidence(self) -> float:
+        """Obtener confianza del patrón actual en uso."""
+        if hasattr(self, 'current_patterns') and self.current_patterns and len(self.current_patterns) > 0:
+            # Asumir que el primer patrón es el principal
+            pattern = self.current_patterns[0]
+            if hasattr(pattern, 'confidence'):
+                return pattern.confidence
+        return 0.50  # Default si no hay patrón
+
+    def get_current_volatility(self) -> float:
+        """Obtener volatilidad actual del mercado."""
+        if hasattr(self, 'state') and self.state and hasattr(self.state, 'volatility'):
+            return self.state.volatility
+        return 0.03  # Default 3% volatilidad
     
     def should_operate_pattern(self, pattern: Any, regime: MarketRegime) -> bool:
         """

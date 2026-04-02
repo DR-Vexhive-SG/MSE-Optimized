@@ -42,7 +42,7 @@ from src.python.market.time_series_state import TimeSeriesState
 # ============================================================================
 RANGE_ENTRY_THRESHOLD = 0.02  # 2% desviación desde límite de rango
 RANGE_WIDTH_MAX = 0.05  # 5% ancho máximo de rango para régimen LATERAL
-CRYSTALLIZATION_THRESHOLD = 0.95  # 1D.5 DEBUG: 0.70 → 0.95 (1B.16 baseline - higher quality)
+CRYSTALLIZATION_THRESHOLD = 0.70  # 1D.7 FIX: 0.95 → 0.70 (temporal para permitir aprendizaje inicial)
 CONFIDENCE_FLOOR = 0.10  # 1C.11: Piso de confianza (previene degradación)
 DELTA_PLUS = 0.25  # 1D.6: 0.15→0.25 (mayor recompensa)
 DELTA_MINUS = 0.10  # 1D.6: 0.15→0.10 (menor castigo)
