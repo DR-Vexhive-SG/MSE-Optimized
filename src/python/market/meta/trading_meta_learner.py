@@ -130,7 +130,8 @@ class TradingMetaLearner:
         }
 
         # 1C.12: Cargar política persistente si existe
-        self.load_policy()
+        # 1D.6 FIX: COMENTADO TEMPORALMENTE para evitar que meta_policy.pkl corrupto sobrescriba pesos con ruido
+        # self.load_policy()
 
     def save_policy(self, path: str = "data/patterns/meta_policy.pkl"):
         """
