@@ -61,7 +61,7 @@ class MetaParameters:
     epsilon_perturbation: float = 0.01  # Tamaño relativo de perturbación [0.001, 0.1]
 
     # Parámetros para REINFORCE (math_patch.txt Sec. 2.4)
-    temperature: float = 0.92  # 1D.3: 1.0 → 0.92 (more exploitation, less exploration) [0.1, 5.0]
+    temperature: float = 1.0  # 1D.6: 0.92 → 1.0 (FORZAR para evitar colapso de softmax)
     baseline_decay: float = 0.99  # Decaimiento del baseline [0.9, 0.999]
 
     def to_dict(self) -> Dict[str, Any]:

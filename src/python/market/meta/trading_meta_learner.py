@@ -109,14 +109,17 @@ class TradingMetaLearner:
         
         # Meta-parámetros
         self.meta_params = MetaParameters()
-        
-        # Weights de estrategia (inicialmente uniformes)
+
+        # 1D.6 FIX: Weights de estrategia con ruido aleatorio inicial para evitar colapso simétrico
+        import numpy as np
+        np.random.seed(42)  # Reproducibilidad
         self.strategy_weights = {
-            'BULL': 1.0,
-            'BEAR': 1.0,
-            'LATERAL': 1.0,
-            'MARKET_NEUTRAL': 1.0
+            'BULL': np.random.uniform(0.8, 1.2),
+            'BEAR': np.random.uniform(0.8, 1.2),
+            'LATERAL': np.random.uniform(0.8, 1.2),
+            'MARKET_NEUTRAL': np.random.uniform(0.8, 1.2)
         }
+        print(f"[1D.6 INIT] Strategy weights initialized with noise: {self.strategy_weights}")
 
         # Estadísticas
         self.stats = {
@@ -235,6 +238,8 @@ class TradingMetaLearner:
         
         # Aplicar temperatura y softmax
         tau = self.meta_params.temperature
+        # 1D.6 DEBUG: Imprimir tau antes del softmax
+        print(f"[1D.6 SOFTMAX] tau={tau:.4f}, scores={scores_tensor.tolist()}")
         logits = scores_tensor / tau
         probs = F.softmax(logits, dim=-1)
         

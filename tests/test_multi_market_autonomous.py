@@ -305,6 +305,15 @@ class MultiMarketTester:
             # Cristalización
             crystallized_count = sum(1 for p in pattern_db.stored_patterns if p.crystallized)
             
+            # 1D.5 DEBUG: Log crystallized count and instance ID
+            print(f"\n{'='*60}")
+            print(f"[1D.5 CRISTALIZACIÓN DEBUG]")
+            print(f"  pattern_db id: {id(pattern_db)}")
+            print(f"  pattern_db.stored_patterns id: {id(pattern_db.stored_patterns)}")
+            print(f"  Crystallized count (local): {crystallized_count}")
+            print(f"  Crystallized patterns: {[p.pattern_type for p in pattern_db.stored_patterns if p.crystallized][:10]}")
+            print(f"{'='*60}")
+            
             # Convergencia
             convergence_ep = meta_learner.stats.get('convergence_episode')
             
@@ -380,10 +389,12 @@ class MultiMarketTester:
         try:
             # 1D.5 FIX: Log instance IDs for debug
             print(f"\n{'='*60}")
-            print(f"[1D.5 PERSISTENCE DEBUG]")
+            print(f"[1D.5 PERSISTENCE DEBUG - FINAL]")
             print(f"  self.pattern_db id: {id(self.pattern_db)}")
+            print(f"  self.pattern_db.stored_patterns id: {id(self.pattern_db.stored_patterns)}")
             print(f"  Patterns in DB: {len(self.pattern_db.stored_patterns)}")
             print(f"  Crystallized in DB: {sum(1 for p in self.pattern_db.stored_patterns if p.crystallized)}")
+            print(f"  Crystallized patterns: {[p.pattern_type for p in self.pattern_db.stored_patterns if p.crystallized][:10]}")
             print(f"{'='*60}")
             
             self.pattern_db.save_patterns()
@@ -471,7 +482,8 @@ class MultiMarketTester:
         # Totales
         total_trades = sum(r.total_trades for r in valid_results)
         total_emergent = sum(r.emergent_patterns for r in valid_results)
-        total_crystallized = sum(r.crystallized_patterns for r in valid_results)
+        # 1D.6 FIX: Use tester's pattern_db (global state) instead of summing local pair states
+        total_crystallized = sum(1 for p in self.pattern_db.stored_patterns if p.crystallized)
         total_violations = sum(r.axiom_violations for r in valid_results)
         
         # Pares con >50% LATERAL
