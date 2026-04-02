@@ -44,8 +44,8 @@ RANGE_ENTRY_THRESHOLD = 0.02  # 2% desviación desde límite de rango
 RANGE_WIDTH_MAX = 0.05  # 5% ancho máximo de rango para régimen LATERAL
 CRYSTALLIZATION_THRESHOLD = 0.95  # 1D.5 DEBUG: 0.70 → 0.95 (1B.16 baseline - higher quality)
 CONFIDENCE_FLOOR = 0.10  # 1C.11: Piso de confianza (previene degradación)
-DELTA_PLUS = 0.15  # 1D.5 DEBUG: 0.20 → 0.15 (1B.16 baseline - more stable)
-DELTA_MINUS = 0.15  # 1C.11: Tasa de aprendizaje para fracasos
+DELTA_PLUS = 0.25  # 1D.6: 0.15→0.25 (mayor recompensa)
+DELTA_MINUS = 0.10  # 1D.6: 0.15→0.10 (menor castigo)
 
 
 # ============================================================================
@@ -428,15 +428,26 @@ class MarketPatternDatabase:
         """
         triggers = pattern.trigger_conditions
         n = len(state.closes)
-        
+
         if n < 20:
             return False  # No hay suficientes datos
-        
+
+        # 1D.6 FIX: Validar que triggers NO esté vacío (bug de patrones emergentes)
+        # Los patrones emergentes de structural_induction pueden tener triggers=None o {}
+        # Esto causaba que _check_trigger_conditions() retornara True por defecto
+        # inflando scores a 55.0+ cuando debería ser ~2.0
+        if not triggers or not any(triggers.values()):
+            return False  # ← FIX: Patrones sin triggers NO hacen match
+
+        # Flag para verificar que AL MENOS UN trigger fue verificado
+        any_trigger_matched = False
+
         # =========================================================================
         # PATRONES DE BREAKOUT/BREAKDOWN
         # =========================================================================
-        
+
         if 'breakout_threshold' in triggers:
+            any_trigger_matched = True  # ← Marcar que verificamos este trigger
             # close_t > max(high_{t-20:t-1})
             recent_highs = state.highs[-20:-1]
             max_high = np.max(recent_highs)
@@ -454,6 +465,7 @@ class MarketPatternDatabase:
                     return False
         
         if 'breakdown_threshold' in triggers:
+            any_trigger_matched = True  # ← Marcar que verificamos este trigger
             # close_t < min(low_{t-20:t-1})
             recent_lows = state.lows[-20:-1]
             min_low = np.min(recent_lows)
@@ -475,6 +487,7 @@ class MarketPatternDatabase:
         # =========================================================================
 
         if 'range_position' in triggers:
+            any_trigger_matched = True  # ← Marcar que verificamos este trigger
             # Calcular rango de 20 períodos
             recent_highs = state.highs[-20:-1]
             recent_lows = state.lows[-20:-1]
@@ -524,6 +537,7 @@ class MarketPatternDatabase:
         # =========================================================================
         
         if 'pullback_threshold_low' in triggers:
+            any_trigger_matched = True  # ← Marcar que verificamos este trigger
             # close_t ∈ [support·1.002, support·1.005]
             recent_lows = state.lows[-20:-1]
             support = np.min(recent_lows)
@@ -536,6 +550,7 @@ class MarketPatternDatabase:
                 return False
         
         if 'rally_threshold_low' in triggers:
+            any_trigger_matched = True  # ← Marcar que verificamos este trigger
             # close_t ∈ [resistance·0.995, resistance·0.998]
             recent_highs = state.highs[-20:-1]
             resistance = np.max(recent_highs)
@@ -583,8 +598,12 @@ class MarketPatternDatabase:
         if 'regime_confidence_min' in triggers:
             if metrics.regime_confidence < triggers['regime_confidence_min']:
                 return False
-        
-        return True
+
+        # 1D.6 FIX: Axioma A4 (Soundness) - Solo retorna True si AL MENOS UN trigger explícito fue verificado
+        # Si llegamos aquí sin haber verificado NINGÚN trigger (triggers vacíos o no coinciden),
+        # la inferencia falla y debe retornar False para evitar patrones fantasmas
+        # Esto elimina scores inflados de 56.0 causados por patrones sin triggers válidos
+        return any_trigger_matched  # ← FIX: Soundness axiom - return True only if at least one trigger was verified
     
     def update_pattern_effectiveness(self, pattern: MarketStoredPattern,
                                     success: bool):
@@ -593,7 +612,7 @@ class MarketPatternDatabase:
         CRITICAL FIX: Uses new threshold 0.70 (was 0.95) for crystallization check.
         """
         pattern.update_effectiveness(success)
-        pattern.check_crystallization(threshold=0.95)  # CRITICAL FIX: 0.95 → 0.70
+        pattern.check_crystallization(threshold=CRYSTALLIZATION_THRESHOLD)  # CRITICAL FIX: 0.95 → 0.70
     
     def update_bifurcation_history(self, action: str, regime: MarketRegime,
                                   success: bool, depth: int = 1):
@@ -673,7 +692,7 @@ class MarketPatternDatabase:
         # Paso 1: Verificar cristalización (CRITICAL FIX: 0.95 → 0.70)
         crystallized_count = 0
         for pattern in self.stored_patterns:
-            if pattern.check_crystallization(threshold=0.95):  # CRITICAL FIX: 0.95 → 0.70
+            if pattern.check_crystallization(threshold=CRYSTALLIZATION_THRESHOLD):  # CRITICAL FIX: 0.95 → 0.70
                 crystallized_count += 1
 
         if crystallized_count > 0:
@@ -1077,7 +1096,7 @@ if __name__ == "__main__":
     # CRITICAL FIX: Threshold changed from 0.95 to 0.70
     # Forzar confianza alta
     pattern.confidence = 0.71
-    cristalizo = pattern.check_crystallization(threshold=0.95)
+    cristalizo = pattern.check_crystallization(threshold=CRYSTALLIZATION_THRESHOLD)
     print(f"  Cristalizado: {cristalizo}")
     assert cristalizo == True, "Debe cristalizar"
     print("  ✓ PASSED")
