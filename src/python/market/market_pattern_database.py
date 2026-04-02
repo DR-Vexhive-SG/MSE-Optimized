@@ -745,11 +745,12 @@ def create_builtin_patterns() -> List[MarketStoredPattern]:
 
     # 1. breakout_resistance
     # Trigger: close_t > max(high_{t-20:t-1}) ∧ volume_t > 1.5·volume_mean
+    # 1D.6 FIX: Relajado breakout_threshold de 1.0 → 0.98 para permitir más matches
     patterns.append(MarketStoredPattern(
         pattern_type='breakout_resistance',
         regime=MarketRegime.BULL,
         trigger_conditions={
-            'breakout_threshold': 1.0,  # close > max(high_20)
+            'breakout_threshold': 0.98,  # 1D.6: 1.0 → 0.98 (close >= 98% del max_high)
             'volume_ratio_min': 1.5,
             'volatility_max': 0.05
         },
@@ -762,12 +763,13 @@ def create_builtin_patterns() -> List[MarketStoredPattern]:
 
     # 2. pullback_support
     # Trigger: close_t ∈ [support·1.002, support·1.005] ∧ R(t)=BULL
+    # 1D.6 FIX: Relajado pullback_threshold de [0.2%-0.5%] → [0.1%-1.0%] para más matches
     patterns.append(MarketStoredPattern(
         pattern_type='pullback_support',
         regime=MarketRegime.BULL,
         trigger_conditions={
-            'pullback_threshold_low': 1.002,  # 0.2% sobre soporte
-            'pullback_threshold_high': 1.005,  # 0.5% sobre soporte
+            'pullback_threshold_low': 1.001,  # 1D.6: 0.2% → 0.1% (más permisivo)
+            'pullback_threshold_high': 1.01,  # 1D.6: 0.5% → 1.0% (más permisivo)
             'trend_slope_min': 0.0005
         },
         entry_signal='buy',
@@ -804,12 +806,13 @@ def create_builtin_patterns() -> List[MarketStoredPattern]:
 
     # 4. rally_resistance
     # Trigger: close_t ∈ [resistance·0.995, resistance·0.998] ∧ R(t)=BEAR
+    # 1D.6 FIX: Relajado rally_threshold de [0.2%-0.5%] → [0.1%-1.0%] para más matches
     patterns.append(MarketStoredPattern(
         pattern_type='rally_resistance',
         regime=MarketRegime.BEAR,
         trigger_conditions={
-            'rally_threshold_low': 0.995,  # 0.5% bajo resistencia
-            'rally_threshold_high': 0.998,  # 0.2% bajo resistencia
+            'rally_threshold_low': 0.999,  # 1D.6: 0.5% → 0.1% (más permisivo)
+            'rally_threshold_high': 0.99,  # 1D.6: 0.2% → 1.0% (más permisivo)
             'trend_slope_max': -0.0005
         },
         entry_signal='sell',
@@ -829,13 +832,14 @@ def create_builtin_patterns() -> List[MarketStoredPattern]:
 
     # 5. range_buy_low
     # Trigger: close_t ∈ [range_low, range_low·1.015] ∧ R(t)=LATERAL
+    # 1D.6 FIX: Relajado range_tolerance de 1.5% → 3.0% y range_max_width de 5% → 8%
     patterns.append(MarketStoredPattern(
         pattern_type='range_buy_low',
         regime=MarketRegime.LATERAL,
         trigger_conditions={
             'range_position': 'low',
-            'range_tolerance': 0.015,  # 1C.9: 2.0% → 1.5% (tighter entry)
-            'range_max_width': 0.05,   # Maintain 5% for crypto
+            'range_tolerance': 0.03,  # 1D.6: 1.5% → 3.0% (más permisivo)
+            'range_max_width': 0.08,  # 1D.6: 5% → 8% (rangos más amplios)
             'volatility_max': 0.03
         },
         entry_signal='buy',
@@ -847,13 +851,14 @@ def create_builtin_patterns() -> List[MarketStoredPattern]:
 
     # 6. range_sell_high
     # Trigger: close_t ∈ [range_high·0.985, range_high] ∧ R(t)=LATERAL
+    # 1D.6 FIX: Relajado range_tolerance de 1.5% → 3.0% y range_max_width de 5% → 8%
     patterns.append(MarketStoredPattern(
         pattern_type='range_sell_high',
         regime=MarketRegime.LATERAL,
         trigger_conditions={
             'range_position': 'high',
-            'range_tolerance': 0.015,  # 1C.9: 2.0% → 1.5% (tighter entry)
-            'range_max_width': 0.05,   # Maintain 5% for crypto
+            'range_tolerance': 0.03,  # 1D.6: 1.5% → 3.0% (más permisivo)
+            'range_max_width': 0.08,  # 1D.6: 5% → 8% (rangos más amplios)
             'volatility_max': 0.03
         },
         entry_signal='sell',
