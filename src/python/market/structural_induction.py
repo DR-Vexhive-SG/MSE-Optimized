@@ -177,17 +177,16 @@ class MarketStructuralInduction:
         # Feature 1: return (retorno a 1 período)
         features['return'] = (closes[-1] - closes[-2]) / closes[-2] if len(closes) >= 2 else 0
 
-        # Feature 2: volume_ratio (volumen relativo) - 1B.10: NaN FIX
+        # Feature 2: volume_ratio (volumen relativo) - 1B.10: NaN FIX, 1D.9: F1 IMPROVED
         # ROOT CAUSE: volume_ratio produce NaN consistentemente, rompiendo signature hashing
-        # FIX: Validar divisor y resultado, fallback a 1.0 (valor neutral) si NaN
+        # FIX F1 (1D.9): Improved validation with floor to prevent division by tiny numbers
         if len(volumes) >= 20:
             volume_mean = np.mean(volumes[-20:])
-            if volume_mean > 0 and not np.isnan(volume_mean):
-                volume_ratio = current_volume / volume_mean
-                # 1B.10: NaN fallback validation - si resultado es NaN/Inf, usar 1.0
-                if np.isnan(volume_ratio) or np.isinf(volume_ratio):
-                    volume_ratio = 1.0
-            else:
+            # FIX F1: Usar máximo entre volume_mean y 1% de current_volume como piso
+            safe_volume = max(volume_mean, current_volume * 0.01, 1e-8)
+            volume_ratio = current_volume / safe_volume
+            # Validar resultado final
+            if np.isnan(volume_ratio) or np.isinf(volume_ratio):
                 volume_ratio = 1.0  # Fallback a valor neutral
         else:
             volume_ratio = 1.0  # Fallback a valor neutral
