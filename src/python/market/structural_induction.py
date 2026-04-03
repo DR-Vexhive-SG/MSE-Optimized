@@ -76,8 +76,8 @@ class EmergentPattern:
                 entry_signal = 'hold'
         else:
             entry_signal = 'hold'
-        
-        return MarketStoredPattern(
+
+        pattern = MarketStoredPattern(
             pattern_type=self.pattern_type,
             regime=self.regime,
             trigger_conditions=self.conditions,
@@ -89,6 +89,16 @@ class EmergentPattern:
             crystallized=False,
             complexity=4.0  # Patrones emergentes son más complejos
         )
+        
+        # FIX 1D.6: Verificar cristalización inmediatamente después de crear
+        # Si el patrón ya tiene confidence >= threshold, debe cristalizar
+        from src.python.market.market_pattern_database import CRYSTALLIZATION_THRESHOLD
+        if pattern.confidence >= CRYSTALLIZATION_THRESHOLD:
+            pattern.check_crystallization(threshold=CRYSTALLIZATION_THRESHOLD)
+            if pattern.crystallized:
+                print(f"  [StructuralInduction] ✅ Patrón emergente {pattern.pattern_type} cristalizado inmediatamente (E={pattern.confidence:.3f} >= {CRYSTALLIZATION_THRESHOLD:.2f})")
+        
+        return pattern
 
 
 class MarketStructuralInduction:
