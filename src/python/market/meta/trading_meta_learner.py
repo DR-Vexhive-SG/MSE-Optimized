@@ -493,11 +493,15 @@ class TradingMetaLearner:
             meta_params = self.meta_params
 
         # Buscar patrón en DB
+        # 1D.7 FIX: Usar pattern_type en lugar de pattern.id (UUID)
+        # pattern_id viene como pattern_type (ej: "range_buy_low"), no UUID
+        # Actualizar TODOS los patrones del mismo tipo para aprendizaje cruzado
+        updated_count = 0
         for pattern in self.pattern_db.stored_patterns:
-            if pattern.id == pattern_id:
+            if pattern.pattern_type == pattern_id:  # ← FIX: pattern_type en lugar de pattern.id
                 # Store initial confidence for logging
                 initial_conf = pattern.confidence
-                
+
                 # 1B.8: REINFORCE proporcional al PnL
                 if pnl_pct > success_threshold:
                     # Éxito: reward factor proporcional al PnL
@@ -514,11 +518,14 @@ class TradingMetaLearner:
                         pattern.confidence - meta_params.delta_minus * penalty_factor
                     )
 
-                # [DEBUG] Log pattern update
-                print(f"[MetaLearner DEBUG] Pattern {pattern_id}: confidence {initial_conf:.3f} → {pattern.confidence:.3f} (Δ={pattern.confidence - initial_conf:+.3f}), pnl_pct={pnl_pct:+.4f}")
+                updated_count += 1
 
-                # Verificar cristalización (Q4) - 1D.5 DEBUG: Revert to 1B.16 baseline (0.95)
-                if pattern.confidence > 0.95 and not pattern.crystallized:
+                # [DEBUG] Log pattern update (solo primer patrón actualizado)
+                if updated_count == 1:
+                    print(f"[MetaLearner DEBUG] Pattern {pattern_id}: confidence {initial_conf:.3f} → {pattern.confidence:.3f} (Δ={pattern.confidence - initial_conf:+.3f}), pnl_pct={pnl_pct:+.4f}, updated {updated_count} patterns")
+
+                # Verificar cristalización (Q4) - 1D.7 FIX: Usar CRYSTALLIZATION_THRESHOLD=0.70
+                if pattern.confidence > 0.70 and not pattern.crystallized:
                     pattern.crystallized = True
                     pattern.is_soft = False
                     print(f"[MetaLearner DEBUG] Pattern {pattern_id}: CRYSTALLIZED!")
