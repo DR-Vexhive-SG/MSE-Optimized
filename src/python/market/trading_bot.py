@@ -1021,6 +1021,9 @@ class TradingBotAutonomous(TradingBot):
             last_trade = self.closed_trades[-1]
             actual_pnl = last_trade.pnl_pct if last_trade else 0.0
 
+            print(f"[1D.7 F3 DEBUG] Recording episode: strategy={strategy_value}, pnl={actual_pnl:.2f}%, log_prob={log_prob_value:.4f}")
+            print(f"[1D.7 F3 DEBUG] Before record_episode: log_probs_history len={len(self.meta_learner.log_probs_history)}")
+
             self.meta_learner.record_episode(
                 strategy=strategy_value,
                 log_prob=self.current_log_prob,
@@ -1028,6 +1031,10 @@ class TradingBotAutonomous(TradingBot):
                 patterns_used=patterns_used,
                 pnl=actual_pnl
             )
+
+            print(f"[1D.7 F3 DEBUG] After record_episode: log_probs_history len={len(self.meta_learner.log_probs_history)}")
+        else:
+            print(f"[1D.7 F3 DEBUG] ⚠️ Skipping record_episode: has_strategy={hasattr(self, 'current_strategy')}, has_log_prob={hasattr(self, 'current_log_prob')}, closed_trades={len(self.closed_trades)}")
 
         return close_trade
     
