@@ -991,16 +991,23 @@ class TradingBotAutonomous(TradingBot):
             # Obtener el trade cerrado más reciente
             last_trade = self.closed_trades[-1]
 
+            # 1D.7 DEBUG: Log pattern_used
+            pattern_id = getattr(last_trade, 'pattern_used', None)
+            print(f"[1D.7 DEBUG] Closing trade: pattern_used={pattern_id}, pnl={last_trade.pnl_pct:.2f}%")
+
             # Convertir pnl_pct de porcentaje a decimal (ej: 5.2% → 0.052)
             pnl_pct_decimal = last_trade.pnl_pct / 100.0 if last_trade.pnl_pct else 0.0
 
             # Actualizar E(pt) del patrón usado
-            if hasattr(last_trade, 'pattern_used') and last_trade.pattern_used:
+            if pattern_id and pattern_id != 'unknown':
                 self.update_pattern_effectiveness(
-                    pattern_id=last_trade.pattern_used,
+                    pattern_id=pattern_id,
                     pnl_pct=pnl_pct_decimal,
                     success_threshold=0.0
                 )
+                print(f"[1D.7 DEBUG] E(pt) updated for {pattern_id}")
+            else:
+                print(f"[1D.7 DEBUG] ⚠️ pattern_used is None/unknown, skipping E(pt) update")
 
         # REINFORCE: Registrar episodio con PnL REAL (FIX: antes se registraba con pnl=0)
         # Usar información almacenada cuando se abrió la posición
