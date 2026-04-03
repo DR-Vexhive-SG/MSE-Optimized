@@ -295,6 +295,16 @@ class MarketPatternDatabase:
         """Guardar patrones en archivo."""
         try:
             patterns_as_dicts = [p.to_dict() for p in self.stored_patterns]
+            
+            # FIX F3: Validar que patrones cristalizados se persisten correctamente
+            crystallized_count = sum(1 for p in self.stored_patterns if p.crystallized)
+            print(f"  [MarketPatternDB] Persistencia: {crystallized_count} patrones cristalizados de {len(self.stored_patterns)} totales")
+            
+            # Verificar que cada patrón cristalizado tiene confidence >= 0.70
+            for p in self.stored_patterns:
+                if p.crystallized and p.confidence < 0.70:
+                    print(f"  ⚠️ WARNING: Patrón {p.pattern_type} cristalizado con confidence={p.confidence:.3f} < 0.70")
+            
             hist_as_dicts = {
                 k: {
                     'action': v.action,
