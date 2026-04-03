@@ -507,8 +507,14 @@ class TradingBot:
 
         print(f"  [TradingBot] Position sizing: confidence={pattern_confidence:.2f}, regime={regime} → {position_pct*100:.1f}% risk (base={base_position_pct*100:.1f}%, conf_mult={confidence_multiplier:.2f}, reg_mult={regime_multiplier:.2f})")
 
+        # FIX F4: Hard cap validation (3.0% máximo)
+        position_pct = (position_size * price) / self.capital
+        if position_pct > self.MAX_POSITION_PCT:
+            print(f"  [TradingBot] ⚠️ Position sizing {position_pct:.1%} > MAX {self.MAX_POSITION_PCT:.1%}, reduciendo")
+            position_size = (self.MAX_POSITION_PCT * self.capital) / price
+
         return max(0.001, position_size)  # Minimum 0.001
-    
+
     def get_metrics(self) -> BotMetrics:
         """Obtener métricas de rendimiento."""
         return self.metrics
@@ -590,6 +596,8 @@ class Backtester:
 # ============================================================================
 
 class TradingBotAutonomous(TradingBot):
+    # FIX F4: Hard cap en position sizing (3.0% máximo)
+    MAX_POSITION_PCT = 0.03
     """
     Trading Bot con auto-selección de estrategia (N3 autonomía).
     
