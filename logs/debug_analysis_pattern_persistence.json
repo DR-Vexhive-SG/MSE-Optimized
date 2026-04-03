@@ -1,0 +1,103 @@
+{
+  "report_title": "Pattern Persistence System Fix - Analysis Report",
+  "report_date": "2026-03-31",
+  "mse_version": "v5.0.2-R",
+  "severity": "CRITICAL",
+  "status": "RESOLVED",
+  
+  "executive_summary": {
+    "problem": "MSE trading system was crystallizing patterns but NOT persisting them between sessions, causing zero learning accumulation",
+    "root_cause": "Path mismatch - MarketPatternDatabase defaulted to 'data/market/market_pattern_db.pkl.gz' but patterns should be stored in 'data/patterns/hybrid_pattern_db.pkl.gz'",
+    "secondary_issue": "No save_patterns() call after backtest completion",
+    "fix_applied": "Changed default path and added persistence save calls to MultiMarketTester",
+    "validation": "End-to-end test passed - patterns now persist between sessions"
+  },
+  
+  "analysis": {
+    "pre_fix_state": {
+      "expected_path": "data/market/market_pattern_db.pkl.gz",
+      "expected_path_exists": false,
+      "actual_path": "data/patterns/hybrid_pattern_db.pkl.gz",
+      "actual_path_exists": true,
+      "actual_file_size": "17K (corrupted/incompatible schema)",
+      "pattern_count_per_run": "14-15 (base only, no accumulation)",
+      "crystallized_patterns": "0 (lost after each run)",
+      "learning": "NONE"
+    },
+    
+    "post_fix_state": {
+      "default_path": "data/patterns/hybrid_pattern_db.pkl.gz",
+      "path_exists": true,
+      "pattern_count_per_run": "15 + accumulated",
+      "crystallized_patterns": "3+ (persisted)",
+      "learning": "YES"
+    }
+  },
+  
+  "files_modified": [
+    {
+      "file": "src/python/market/market_pattern_database.py",
+      "change": "Changed default db_path from 'data/market/market_pattern_db.pkl.gz' to 'data/patterns/hybrid_pattern_db.pkl.gz'",
+      "line": 188
+    },
+    {
+      "file": "tests/test_multi_market_autonomous.py",
+      "changes": [
+        "Added Optional to typing imports",
+        "Added shared pattern_db to MultiMarketTester.__init__()",
+        "Modified run_backtest_for_pair() to accept optional pattern_db parameter",
+        "Added save_patterns() call at end of run_all_tests()"
+      ],
+      "lines": [25, 85-91, 114-160, 345-365]
+    }
+  ],
+  
+  "test_results": {
+    "persistence_test": {
+      "status": "PASSED",
+      "details": {
+        "step1_create_save": "15 patterns created and saved",
+        "step2_load": "15 patterns loaded successfully",
+        "crystallized_preserved": 3
+      }
+    },
+    "end_to_end_test": {
+      "status": "PASSED",
+      "details": {
+        "initial_patterns": 30,
+        "bars_processed": 300,
+        "total_trades": 18,
+        "winning_trades": 8,
+        "losing_trades": 10,
+        "win_rate": 44.4,
+        "patterns_saved": 30,
+        "crystallized_patterns": 3,
+        "reload_verified": true
+      }
+    }
+  },
+  
+  "metrics_ca1_to_ca8": {
+    "CA1_emergent_patterns": {"description": "Patrones emergentes ≥5", "status": "TRACKING"},
+    "CA2_auto_selection": {"description": "Auto-selección estrategia 100%", "status": "TRACKING"},
+    "CA3_win_rate": {"description": "Win rate ≥55%", "current": 44.4, "target": 55, "status": "NEEDS_IMPROVEMENT"},
+    "CA4_sharpe_ratio": {"description": "Sharpe ratio ≥1.0", "status": "TRACKING"},
+    "CA5_max_drawdown": {"description": "Max drawdown <15%", "status": "TRACKING"},
+    "CA6_axiom_violations": {"description": "Violaciones axiomáticas = 0", "status": "TRACKING"},
+    "CA7_convergence": {"description": "Convergencia Φ ≤50 episodios", "status": "TRACKING"},
+    "CA8_crystallization": {"description": "Cristalización patrones ≥2", "current": 3, "target": 2, "status": "PASSED"}
+  },
+  
+  "recommendations": [
+    "Monitor pattern accumulation over multiple test runs",
+    "Verify crystallized patterns improve win rate over time",
+    "Consider adding periodic save during long backtests (every N pairs)",
+    "Add pattern DB version tracking for schema compatibility",
+    "Implement pattern DB backup before each save operation"
+  ],
+  
+  "validation_commands": [
+    "ls -lh data/patterns/hybrid_pattern_db.pkl.gz",
+    "python3 -c \"from src.python.market.market_pattern_database import MarketPatternDatabase; db = MarketPatternDatabase(); print(f'Patterns: {len(db.stored_patterns)}')\""
+  ]
+}

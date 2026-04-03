@@ -1,0 +1,114 @@
+{
+  "phase": "1B.8",
+  "title": "REINFORCE Proporcional al PnL y Pattern Emergence Optimization",
+  "timestamp": "2026-03-29",
+  "mse_version": "v5.0.2-R",
+  "changes": [
+    {
+      "file": "src/python/market/meta/trading_meta_learner.py",
+      "function": "update_pattern_effectiveness",
+      "change_type": "signature_and_logic",
+      "description": "REINFORCE proporcional al PnL en lugar de booleano success",
+      "before": {
+        "signature": "update_pattern_effectiveness(self, pattern_id: str, success: bool, meta_params=None)",
+        "logic": "if success: confidence += delta_plus; else: confidence -= delta_minus"
+      },
+      "after": {
+        "signature": "update_pattern_effectiveness(self, pattern_id: str, pnl_pct: float, success_threshold: float = 0.0, meta_params=None)",
+        "logic": "if pnl_pct > threshold: reward_factor = min(2.0, 1.0 + pnl_pct/0.03); confidence += delta_plus * reward_factor; elif pnl_pct < 0: penalty_factor = min(2.0, 1.0 + |pnl_pct|/0.03); confidence -= delta_minus * penalty_factor"
+      },
+      "rationale": "Permite aprendizaje más granular basado en magnitud del PnL, no solo éxito/fracaso binario"
+    },
+    {
+      "file": "src/python/market/structural_induction.py",
+      "class": "MarketStructuralInduction",
+      "change_type": "parameter_update",
+      "description": "Pattern Emergence optimization - parámetros 1B.8",
+      "parameters": [
+        {
+          "name": "min_support",
+          "before": 0.1,
+          "after": 0.05,
+          "rationale": "Reducir umbral de 10% a 5% para permitir más patrones emergentes"
+        },
+        {
+          "name": "signature_precision",
+          "before": 2,
+          "after": 3,
+          "rationale": "Aumentar precisión de 2 a 3 decimales para signature hash"
+        },
+        {
+          "name": "features",
+          "before": "return_1, return_5, return_20, volatility_20, volume_ratio, price_position, trend_slope, regime_confidence",
+          "after": "return, volatility, volume_ratio, momentum, range_position",
+          "rationale": "5 features optimizados para pattern discovery"
+        }
+      ]
+    },
+    {
+      "file": "src/python/market/trading_bot.py",
+      "class": "TradingBotAutonomous",
+      "change_type": "parameter_update",
+      "description": "Position sizing reducido para gestión de riesgo",
+      "parameters": [
+        {
+          "name": "position_size_pct",
+          "before": 0.1,
+          "after": 0.07,
+          "rationale": "Reducir exposición de 10% a 7% por operación"
+        }
+      ]
+    },
+    {
+      "file": "src/python/market/trading_bot.py",
+      "class": "TradingBotAutonomous",
+      "change_type": "new_method",
+      "description": "Override de _close_position para pasar pnl_pct a meta_learner",
+      "implementation": "Al cerrar posición, convertir pnl_pct de porcentaje a decimal (ej: 5.2% → 0.052) y llamar a update_pattern_effectiveness con el valor proporcional"
+    },
+    {
+      "file": "src/python/market/trading_bot.py",
+      "class": "TradingBotAutonomous",
+      "change_type": "signature_update",
+      "description": "Actualización de update_pattern_effectiveness wrapper",
+      "before": {
+        "signature": "update_pattern_effectiveness(self, pattern_id: str, success: bool)"
+      },
+      "after": {
+        "signature": "update_pattern_effectiveness(self, pattern_id: str, pnl_pct: float, success_threshold: float = 0.0)"
+      }
+    }
+  ],
+  "parameter_summary": {
+    "table": [
+      ["Parameter", "Before", "After", "Rationale"],
+      ["min_support", "0.10", "0.05", "Más patrones emergentes permitidos"],
+      ["signature_precision", "2", "3", "Mayor precisión en signature hash"],
+      ["features_count", "8", "5", "Features optimizados para discovery"],
+      ["position_size_pct", "0.10", "0.07", "Menor exposición por trade"],
+      ["update_pattern_effectiveness", "success: bool", "pnl_pct: float", "REINFORCE proporcional"]
+    ]
+  },
+  "success_criteria": {
+    "reinforce_uses_pnl_pct": true,
+    "min_support_5_percent": true,
+    "signature_precision_3_decimals": true,
+    "five_features": true,
+    "position_size_7_percent": true,
+    "no_syntax_errors": true,
+    "unit_tests_passing": "pending"
+  },
+  "files_modified": [
+    "src/python/market/meta/trading_meta_learner.py",
+    "src/python/market/structural_induction.py",
+    "src/python/market/trading_bot.py"
+  ],
+  "axiom_compliance": {
+    "A1": "Not modified (inviolable)",
+    "A2": "Not modified (inviolable)",
+    "A3": "Validated - parameter changes are sound",
+    "A4": "Validated - no structural violations",
+    "A5": "Not modified (inviolable)",
+    "A6": "Not modified (inviolable)"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "phase": "1B.5",
+  "timestamp": "2026-03-28T23:55:00-05:00",
+  "title": "Trigger Condition Fixes para H5 (Pattern Matching Failure)",
+  "status": "COMPLETED",
+  
+  "changes": [
+    {
+      "file": "src/python/market/market_pattern_database.py",
+      "parameter": "range_tolerance",
+      "before": 0.01,
+      "after": 0.025,
+      "change_pct": "+150%",
+      "rationale": "Alinear con trading_bot.py (2.5%) y permitir entradas realistas en crypto",
+      "lines": [745, 763]
+    },
+    {
+      "file": "src/python/market/market_pattern_database.py",
+      "parameter": "range_max_width",
+      "before": 0.03,
+      "after": 0.05,
+      "change_pct": "+66.7%",
+      "rationale": "Permitir trading en mercados laterales moderadamente volátiles (5% vs 3%)",
+      "lines": [746, 764]
+    },
+    {
+      "file": "src/python/market/regime_validator.py",
+      "parameter": "z_score_threshold",
+      "before": 0.02,
+      "after": 0.05,
+      "change_pct": "+150%",
+      "rationale": "Mejor captura de bull/bear regimes en crypto (menos conservador)",
+      "line": 55
+    },
+    {
+      "file": "src/python/market/regime_validator.py",
+      "parameter": "volatility_threshold",
+      "before": 0.03,
+      "after": 0.05,
+      "change_pct": "+66.7%",
+      "rationale": "Permitir volatilidad normal de crypto sin falsos positivos",
+      "line": 57
+    }
+  ],
+
+  "validation": {
+    "syntax_check": "PASSED",
+    "consistency_check": {
+      "range_tolerance_trading_bot": 0.025,
+      "range_tolerance_pattern_db": 0.025,
+      "aligned": true
+    },
+    "axiom_compliance": {
+      "A1": "INVARIANTE (sin cambios)",
+      "A2": "INVARIANTE (sin cambios)",
+      "A3": "VALIDADO (umbrales más permisivos)",
+      "A4": "VALIDADO (umbrales más permisivos)",
+      "A5": "INVARIANTE (sin cambios)",
+      "A6": "INVARIANTE (sin cambios)"
+    }
+  },
+
+  "expected_impact": {
+    "trigger_match_rate": {
+      "before": "0.09% (7 trades de 10,000 barras)",
+      "after": ">1% esperado (mejora ~10x)",
+      "rationale": "Tolerancia 2.5% vs 1% permite 2.5x más entradas por extremo"
+    },
+    "regime_detection": {
+      "before": "100% LATERAL (demasiado conservador)",
+      "after": "Mezcla BULL/BEAR/LATERAL esperada",
+      "rationale": "Z-score y volatilidad thresholds más permisivos"
+    },
+    "total_trades": {
+      "before": 7,
+      "after": "≥50 esperado",
+      "rationale": "Más triggers válidos + mejor detección de regímenes"
+    },
+    "win_rate": {
+      "before": "0-10%",
+      "after": "≥30% esperado",
+      "rationale": "Mejor calidad de entradas (tolerancia alineada)"
+    }
+  },
+
+  "hypothesis": {
+    "statement": "Ajustar range_tolerance (0.01→0.025), range_max_width (0.03→0.05), z_score_threshold (0.02→0.05), y volatility_threshold (0.03→0.05) resolverá H5 (Pattern Matching Failure) aumentando trigger match rate de 0.09% → >1% y total trades de 7 → ≥50.",
+    "testable_metrics": [
+      "trigger_match_rate > 1%",
+      "total_trades ≥ 50",
+      "regime_distribution: <100% LATERAL",
+      "win_rate ≥ 30%"
+    ]
+  },
+
+  "next_steps": [
+    "Ejecutar test_multi_market_autonomous.py con dataset DOT/UST",
+    "Validar trigger_match_rate en logs",
+    "Verificar distribución de regímenes (BULL/BEAR/LATERAL)",
+    "Documentar resultados en AJUSTES_EXPERIMENTALES_FASE1B.md",
+    "Esperar confirmación de Vexhive para siguiente iteración"
+  ],
+
+  "files_modified": [
+    "src/python/market/market_pattern_database.py",
+    "src/python/market/regime_validator.py"
+  ],
+
+  "files_to_update": [
+    "logs/trading_agent_adjustments.txt",
+    "docs/v5/AJUSTES_EXPERIMENTALES_FASE1B.md"
+  ]
+}

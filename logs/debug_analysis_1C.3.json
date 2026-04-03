@@ -1,0 +1,137 @@
+{
+  "analysis_id": "1C.3_debug_analysis",
+  "timestamp": "2026-03-30T03:08:53",
+  "test_file": "tests/test_multi_market_autonomous.py",
+  "implementation": "1C.3 Logging Optimization",
+
+  "executive_summary": {
+    "status": "COMPLETED_WITH_WARNINGS",
+    "root_cause_fixed": "Excessive debug logging causing I/O bottleneck",
+    "key_findings": [
+      "Test completed successfully after disabling debug logging",
+      "Win rate: 56.08% (target ≥58%) - SLIGHTLY BELOW TARGET",
+      "Sharpe ratio: -55.15 (target ≥-30) - BELOW TARGET",
+      "Max drawdown: 14.23% (target <15%) - WITHIN TARGET",
+      "Total trades: 113 (target 80-100) - ABOVE TARGET"
+    ],
+    "logging_fixes_applied": [
+      "Disabled [DEBUG-HISTORY] print statements in test file",
+      "RegimeValidator logging already disabled (1C.2)",
+      "MarketPatternDB logging already disabled (1C.2)",
+      "TimeSeriesState logging already disabled (1C.2)",
+      "StructuralInduction debug_mode=False (1C.2)"
+    ]
+  },
+
+  "metrics_ca1_ca8": {
+    "CA1_total_trades": 113,
+    "CA2_win_rate": 56.08,
+    "CA3_sharpe_ratio": -55.15,
+    "CA4_max_drawdown": 14.23,
+    "CA5_axiom_violations": 4,
+    "CA6_pattern_matching_success": 100.0,
+    "CA7_regime_detection_accuracy": 100.0,
+    "CA8_risk_adjusted_returns": -9.25,
+    "emergent_patterns": 10,
+    "crystallized_patterns": 7
+  },
+
+  "per_symbol_results": [
+    {"symbol": "AXSUST", "win_rate": 66.67, "sharpe": -16.84, "drawdown": 15.04, "trades": 6, "regime": "bull"},
+    {"symbol": "DOTUST", "win_rate": 90.00, "sharpe": -19.78, "drawdown": 13.68, "trades": 10, "regime": "bull"},
+    {"symbol": "ETPUSD", "win_rate": 70.59, "sharpe": -101.75, "drawdown": 13.97, "trades": 17, "regime": "lateral"},
+    {"symbol": "NEOJPY", "win_rate": 50.00, "sharpe": -29.10, "drawdown": 17.05, "trades": 10, "regime": "bear"},
+    {"symbol": "NEOUSD", "win_rate": 54.55, "sharpe": -65.23, "drawdown": 13.51, "trades": 11, "regime": "lateral"},
+    {"symbol": "OMGUSD", "win_rate": 40.00, "sharpe": -50.65, "drawdown": 13.64, "trades": 10, "regime": "lateral"},
+    {"symbol": "REPBTC", "win_rate": 44.44, "sharpe": -76.74, "drawdown": 13.98, "trades": 18, "regime": "lateral"},
+    {"symbol": "REPUSD", "win_rate": 54.55, "sharpe": -62.15, "drawdown": 13.91, "trades": 11, "regime": "lateral"},
+    {"symbol": "XMRUSD", "win_rate": 50.00, "sharpe": -78.17, "drawdown": 13.63, "trades": 10, "regime": "lateral"},
+    {"symbol": "XRPBTC", "win_rate": 40.00, "sharpe": -51.05, "drawdown": 13.87, "trades": 10, "regime": "lateral"}
+  ],
+
+  "target_validation": {
+    "win_rate_target": {"target": 58.0, "actual": 56.08, "status": "FAIL", "delta": -1.92},
+    "sharpe_target": {"target": -30.0, "actual": -55.15, "status": "FAIL", "delta": -25.15},
+    "drawdown_target": {"target": 15.0, "actual": 14.23, "status": "PASS", "delta": 0.77},
+    "trades_target": {"target_min": 80, "target_max": 100, "actual": 113, "status": "FAIL", "delta": "+13"}
+  },
+
+  "root_cause_analysis": {
+    "primary_issue_fixed": "I/O bottleneck from excessive debug logging",
+    "remaining_issues": [
+      {
+        "issue": "Win rate below target (56.08% vs 58%)",
+        "severity": "MEDIUM",
+        "possible_cause": "TP/SL ratios may need adjustment for current market conditions"
+      },
+      {
+        "issue": "Sharpe ratio significantly negative (-55.15)",
+        "severity": "HIGH",
+        "possible_cause": "High variance in returns, large losses relative to wins"
+      },
+      {
+        "issue": "Total trades above target (113 vs 80-100)",
+        "severity": "LOW",
+        "possible_cause": "Pattern matching too aggressive, may need higher confidence threshold"
+      },
+      {
+        "issue": "Axiom A6 violations detected (4 total)",
+        "severity": "MEDIUM",
+        "possible_cause": "Gap detection threshold may need adjustment for volatile markets"
+      }
+    ]
+  },
+
+  "axiom_violations_detail": {
+    "total_violations": 4,
+    "by_symbol": {
+      "AXSUST": 3,
+      "DOTUST": 1,
+      "others": 0
+    },
+    "violation_type": "Axioma A6 - Gap inusual (>15%)",
+    "recommendation": "Review gap detection threshold for high volatility periods"
+  },
+
+  "comparison_1C2_vs_1C3": {
+    "note": "1C.2 test timed out before completion, 1C.3 completed successfully",
+    "1C2_status": "TIMEOUT_FAILURE",
+    "1C3_status": "COMPLETED",
+    "improvement": "Logging fixes enabled test completion within timeout",
+    "performance_impact": "Minimal - trading logic unchanged, only logging reduced"
+  },
+
+  "recommended_fixes": [
+    {
+      "priority": "HIGH",
+      "action": "Optimize TP/SL ratios for improved Sharpe",
+      "rationale": "Current Sharpe of -55.15 is significantly below target of -30",
+      "suggested_change": "Consider tighter stop losses or higher take profits"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Reduce trade frequency",
+      "rationale": "113 trades exceeds target of 80-100, may indicate overtrading",
+      "suggested_change": "Increase pattern confidence threshold from 0.65 to 0.70"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Review Axiom A6 gap threshold",
+      "rationale": "4 violations detected in AXSUST and DOTUST",
+      "suggested_change": "Consider dynamic threshold based on volatility regime"
+    },
+    {
+      "priority": "LOW",
+      "action": "Improve win rate",
+      "rationale": "56.08% is slightly below 58% target",
+      "suggested_change": "Fine-tune entry conditions for lateral regimes (6 of 10 symbols)"
+    }
+  ],
+
+  "validation_status": {
+    "1C3_hypothesis": "e_pt_trigger 0.45 improves Sharpe vs 1C.2",
+    "status": "INCONCLUSIVE",
+    "reason": "1C.2 test did not complete due to timeout, no baseline for comparison",
+    "next_steps": "Re-run 1C.2 with logging fixes for fair comparison"
+  }
+}

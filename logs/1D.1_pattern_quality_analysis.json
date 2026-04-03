@@ -1,0 +1,533 @@
+{
+  "timestamp": "2026-04-01T03:02:01.070180",
+  "phase": "1D.1",
+  "analysis_type": "Pattern Quality Analysis",
+  "pattern_quality": {
+    "total_patterns": 375,
+    "crystallized_count": 4,
+    "average_confidence": 0.6324266666666667,
+    "confidence_distribution": {
+      "high_ge_0.70": 76,
+      "medium_0.60_0.70": 248,
+      "low_lt_0.60": 51
+    },
+    "by_pattern_type": {
+      "breakout_resistance": {
+        "count": 25,
+        "avg_confidence": 0.604,
+        "crystallized": 1
+      },
+      "pullback_support": {
+        "count": 25,
+        "avg_confidence": 0.55,
+        "crystallized": 0
+      },
+      "breakdown_support": {
+        "count": 25,
+        "avg_confidence": 0.6,
+        "crystallized": 0
+      },
+      "rally_resistance": {
+        "count": 25,
+        "avg_confidence": 0.55,
+        "crystallized": 0
+      },
+      "range_buy_low": {
+        "count": 25,
+        "avg_confidence": 0.664,
+        "crystallized": 1
+      },
+      "range_sell_high": {
+        "count": 25,
+        "avg_confidence": 0.632,
+        "crystallized": 1
+      },
+      "head_and_shoulders": {
+        "count": 25,
+        "avg_confidence": 0.7,
+        "crystallized": 0
+      },
+      "inverse_head_and_shoulders": {
+        "count": 25,
+        "avg_confidence": 0.7,
+        "crystallized": 0
+      },
+      "double_top": {
+        "count": 25,
+        "avg_confidence": 0.65,
+        "crystallized": 0
+      },
+      "double_bottom": {
+        "count": 25,
+        "avg_confidence": 0.65,
+        "crystallized": 0
+      },
+      "ascending_triangle": {
+        "count": 25,
+        "avg_confidence": 0.6,
+        "crystallized": 0
+      },
+      "descending_triangle": {
+        "count": 25,
+        "avg_confidence": 0.6,
+        "crystallized": 0
+      },
+      "flag_pennant": {
+        "count": 25,
+        "avg_confidence": 0.62,
+        "crystallized": 0
+      },
+      "flag_pennant_bear": {
+        "count": 25,
+        "avg_confidence": 0.62,
+        "crystallized": 0
+      },
+      "cup_and_handle": {
+        "count": 25,
+        "avg_confidence": 0.746,
+        "crystallized": 1
+      }
+    },
+    "by_regime": {
+      "bull": {
+        "count": 175,
+        "avg_confidence": 0.639,
+        "crystallized": 2
+      },
+      "bear": {
+        "count": 150,
+        "avg_confidence": 0.62,
+        "crystallized": 0
+      },
+      "lateral": {
+        "count": 50,
+        "avg_confidence": 0.648,
+        "crystallized": 2
+      }
+    }
+  },
+  "question_1_exploration_exploitation": {
+    "answer": "YES",
+    "evidence": {
+      "emergent_patterns_discovered": 10,
+      "crystallized_patterns_exploited": 40,
+      "strategy_weights_changed": true,
+      "strategy_weights": {
+        "BULL": 0.9837574845552444,
+        "BEAR": 0.9450598409771919,
+        "LATERAL": 1.0,
+        "MARKET_NEUTRAL": 0.9830065909028053
+      },
+      "weight_deltas_from_initial": {
+        "BULL": -0.0162,
+        "BEAR": -0.0549,
+        "LATERAL": 0.0,
+        "MARKET_NEUTRAL": -0.017
+      }
+    },
+    "assessment": {
+      "emergent_gt_0": true,
+      "crystallized_gt_emergent": true,
+      "weights_changed": true
+    }
+  },
+  "question_2_pattern_categories": {
+    "counts": {
+      "hardcoded_base": 371,
+      "emergent_discovered": 0,
+      "crystallized_learned": 4
+    },
+    "examples": {
+      "hardcoded": {
+        "type": "pullback_support",
+        "regime": "bull",
+        "confidence": 0.55,
+        "trigger_conditions": {
+          "pullback_threshold_low": 1.002,
+          "pullback_threshold_high": 1.005,
+          "trend_slope_min": 0.0005
+        },
+        "tp_sl": "5.0% / 2.5%"
+      },
+      "emergent": {
+        "note": "No emergent patterns currently (all either hardcoded or crystallized)",
+        "explanation": "Emergent patterns from test (10) may have crystallized or been pruned"
+      },
+      "crystallized": {
+        "type": "breakout_resistance",
+        "regime": "bull",
+        "confidence": 0.71,
+        "trigger_conditions": {
+          "breakout_threshold": 1.0,
+          "volume_ratio_min": 1.5,
+          "volatility_max": 0.05
+        },
+        "tp_sl": "5.0% / 2.5%",
+        "description": "High-confidence learned pattern (E > 0.70)"
+      }
+    }
+  },
+  "question_3_cognitive_mapping": {
+    "current_meta_params": {
+      "delta_plus": 0.15,
+      "delta_minus": 0.15609060149999998,
+      "epsilon_min": 0.1,
+      "epsilon_max": 1.0,
+      "w1": 10.0,
+      "w2": 0.1,
+      "w3": 2.0,
+      "lambda_H": 1.0,
+      "mu_penalty": 10.0,
+      "B_max": 1000,
+      "alpha_meta": 0.01,
+      "epsilon_perturbation": 0.01,
+      "temperature": 1.0097980100999997,
+      "baseline_decay": 0.99
+    },
+    "human_learning_mapping": {
+      "pattern_recognition": "Pattern Discovery (Structural Induction)",
+      "confidence_building": "E(pt) Updates (REINFORCE)",
+      "crystallization": "E(pt) > 0.70 threshold",
+      "strategy_selection": "Policy Weights (softmax)",
+      "meta_learning": "\u03a6 Parameters (14 params)",
+      "temperature": "Exploration/Exploitation balance"
+    },
+    "fine_tuning_options": [
+      {
+        "option": 1,
+        "name": "Adjust Learning Rate (\u03b4\u207a, \u03b4\u207b)",
+        "current": {
+          "delta_plus": 0.15,
+          "delta_minus": 0.156
+        },
+        "recommendation": "Increase \u03b4\u207a to 0.20-0.25 for faster positive learning",
+        "priority": 3
+      },
+      {
+        "option": 2,
+        "name": "Adjust Crystallization Threshold",
+        "current": 0.7,
+        "recommendation": "Keep at 0.70, consider 0.75 for higher quality",
+        "priority": 5
+      },
+      {
+        "option": 3,
+        "name": "Adjust Temperature (\u03c4)",
+        "current": 1.0098,
+        "recommendation": "Decrease to 0.90-0.95 for more exploitation",
+        "priority": 1
+      },
+      {
+        "option": 4,
+        "name": "Confidence-Based Position Sizing",
+        "current_tiers": {
+          ">=0.70": "2.5%",
+          ">=0.60": "2.0%",
+          "<0.60": "1.5%"
+        },
+        "recommendation": "Add \u22650.80 tier for 3.0% position",
+        "priority": 2
+      },
+      {
+        "option": 5,
+        "name": "Regime-Specific Learning Rates",
+        "current": "Same \u03b4\u207a/\u03b4\u207b for all regimes",
+        "recommendation": "Implement regime-specific \u03b4\u207a/\u03b4\u207b based on performance",
+        "priority": 4
+      }
+    ]
+  },
+  "backtest_results": {
+    "total_pairs": 10,
+    "global_stats": {
+      "avg_win_rate": 44.408748298928565,
+      "avg_sharpe_ratio": -38.14868888772101,
+      "avg_max_drawdown": 12.892631681225811,
+      "avg_total_return": -7.78347534054015,
+      "total_trades": 190,
+      "total_emergent_patterns": 10,
+      "total_crystallized_patterns": 40,
+      "total_axiom_violations": 4,
+      "lateral_pairs_count": 2,
+      "lateral_pairs": [
+        "REPBTC",
+        "REPUSD"
+      ],
+      "top_3_pairs": [
+        {
+          "symbol": "REPBTC",
+          "score": 0.6295294117647059,
+          "win_rate": 41.17647058823529,
+          "sharpe_ratio": -60.127153192664416,
+          "total_return": -13.261583070941017
+        },
+        {
+          "symbol": "NEOUSD",
+          "score": 0.5085333333333334,
+          "win_rate": 61.111111111111114,
+          "sharpe_ratio": -53.39182351690434,
+          "total_return": -11.341018689095653
+        },
+        {
+          "symbol": "ETPUSD",
+          "score": 0.49167272727272726,
+          "win_rate": 59.09090909090909,
+          "sharpe_ratio": -35.298761384614835,
+          "total_return": -7.252486790074654
+        }
+      ]
+    },
+    "per_symbol_results": [
+      {
+        "symbol": "AXSUST",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 48.699999999999996,
+          "bear": 34.8,
+          "lateral": 11.899999999999999,
+          "transition": 4.6
+        },
+        "predominant_regime": "bull",
+        "total_trades": 31,
+        "winning_trades": 15,
+        "losing_trades": 16,
+        "win_rate": 48.38709677419355,
+        "total_return": 6.911788328955354,
+        "sharpe_ratio": -19.56864609031428,
+        "max_drawdown": 12.807908683965888,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 3,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "DOTUST",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 39.4,
+          "bear": 38.7,
+          "lateral": 16.5,
+          "transition": 5.4
+        },
+        "predominant_regime": "bull",
+        "total_trades": 18,
+        "winning_trades": 8,
+        "losing_trades": 10,
+        "win_rate": 44.44444444444444,
+        "total_return": -7.749238350480354,
+        "sharpe_ratio": -24.209569579807248,
+        "max_drawdown": 12.89720330113108,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 1,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "ETPUSD",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 23.7,
+          "bear": 28.1,
+          "lateral": 41.099999999999994,
+          "transition": 7.1
+        },
+        "predominant_regime": "lateral",
+        "total_trades": 22,
+        "winning_trades": 13,
+        "losing_trades": 9,
+        "win_rate": 59.09090909090909,
+        "total_return": -7.252486790074654,
+        "sharpe_ratio": -35.298761384614835,
+        "max_drawdown": 12.806796073017141,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 0,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "NEOJPY",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 36.4,
+          "bear": 47.8,
+          "lateral": 11.1,
+          "transition": 4.7
+        },
+        "predominant_regime": "bear",
+        "total_trades": 20,
+        "winning_trades": 8,
+        "losing_trades": 12,
+        "win_rate": 40.0,
+        "total_return": -7.064649806273556,
+        "sharpe_ratio": -18.720883101845455,
+        "max_drawdown": 12.718829351365365,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 0,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "NEOUSD",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 34.2,
+          "bear": 12.4,
+          "lateral": 43.8,
+          "transition": 9.6
+        },
+        "predominant_regime": "lateral",
+        "total_trades": 18,
+        "winning_trades": 11,
+        "losing_trades": 7,
+        "win_rate": 61.111111111111114,
+        "total_return": -11.341018689095653,
+        "sharpe_ratio": -53.39182351690434,
+        "max_drawdown": 12.660746196369216,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 0,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "OMGUSD",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 27.0,
+          "bear": 21.4,
+          "lateral": 42.0,
+          "transition": 9.6
+        },
+        "predominant_regime": "lateral",
+        "total_trades": 16,
+        "winning_trades": 6,
+        "losing_trades": 10,
+        "win_rate": 37.5,
+        "total_return": -12.37027714474685,
+        "sharpe_ratio": -42.2877751564432,
+        "max_drawdown": 12.665343095528522,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 0,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "REPBTC",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 3.2,
+          "bear": 5.6000000000000005,
+          "lateral": 89.0,
+          "transition": 2.1999999999999997
+        },
+        "predominant_regime": "lateral",
+        "total_trades": 17,
+        "winning_trades": 7,
+        "losing_trades": 10,
+        "win_rate": 41.17647058823529,
+        "total_return": -13.261583070941017,
+        "sharpe_ratio": -60.127153192664416,
+        "max_drawdown": 13.37787391251599,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 0,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "REPUSD",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 18.9,
+          "bear": 20.8,
+          "lateral": 52.1,
+          "transition": 8.200000000000001
+        },
+        "predominant_regime": "lateral",
+        "total_trades": 15,
+        "winning_trades": 5,
+        "losing_trades": 10,
+        "win_rate": 33.33333333333333,
+        "total_return": -12.684990390453748,
+        "sharpe_ratio": -39.63844497903247,
+        "max_drawdown": 13.133007070984767,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 0,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "XMRUSD",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 23.1,
+          "bear": 25.900000000000002,
+          "lateral": 42.3,
+          "transition": 8.7
+        },
+        "predominant_regime": "lateral",
+        "total_trades": 17,
+        "winning_trades": 6,
+        "losing_trades": 11,
+        "win_rate": 35.294117647058826,
+        "total_return": -0.17900418937884752,
+        "sharpe_ratio": -43.61805490122886,
+        "max_drawdown": 12.76084883899459,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 0,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      },
+      {
+        "symbol": "XRPBTC",
+        "bars": 1000,
+        "regime_distribution": {
+          "bull": 23.1,
+          "bear": 21.2,
+          "lateral": 46.400000000000006,
+          "transition": 9.3
+        },
+        "predominant_regime": "lateral",
+        "total_trades": 16,
+        "winning_trades": 7,
+        "losing_trades": 9,
+        "win_rate": 43.75,
+        "total_return": -12.843293302912171,
+        "sharpe_ratio": -44.62577697435501,
+        "max_drawdown": 13.09776028838555,
+        "emergent_patterns": 1,
+        "crystallized_patterns": 4,
+        "axiom_violations": 0,
+        "strategy_selection_autonomous": true,
+        "convergence_episode": null,
+        "status": "OK",
+        "error": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "comparison_metadata": {
+    "version_a": "1B.3 (TP/SL Fix: 0.5%→1.5%)",
+    "version_b": "1B.4 (Direction Filter: ≤2% desde extremo)",
+    "base_version": "MSE v5.0.2-R",
+    "comparison_timestamp": "2026-03-28T00:00:00Z",
+    "analysis_type": "Iteration Performance Comparison"
+  },
+  
+  "metrics_comparison": {
+    "total_trades": {
+      "v1B3": 8,
+      "v1B4": 7,
+      "delta": -1,
+      "delta_percent": -12.50,
+      "status": "worsened",
+      "interpretation": "Direction filter reduced trade opportunities"
+    },
+    "win_rate": {
+      "v1B3": 0.0,
+      "v1B4": 3.3,
+      "delta": 3.3,
+      "delta_percent": "N/A (from 0%)",
+      "status": "improved",
+      "interpretation": "Marginal improvement but still critically low"
+    },
+    "drawdown": {
+      "v1B3": 12.4,
+      "v1B4": 13.9,
+      "delta": 1.5,
+      "delta_percent": 12.10,
+      "status": "worsened",
+      "interpretation": "Higher risk exposure with direction filter"
+    },
+    "retorno": {
+      "v1B3": -12.12,
+      "v1B4": -13.83,
+      "delta": -1.71,
+      "delta_percent": -14.11,
+      "status": "worsened",
+      "interpretation": "Direction filter did not improve profitability"
+    },
+    "ca_passing": {
+      "v1B3": "3/8",
+      "v1B4": "3/8",
+      "delta": 0,
+      "delta_percent": 0.0,
+      "status": "unchanged",
+      "interpretation": "No improvement in CA compliance"
+    },
+    "violaciones_a6": {
+      "v1B3": 1,
+      "v1B4": 1,
+      "delta": 0,
+      "delta_percent": 0.0,
+      "status": "unchanged",
+      "interpretation": "Direction filter did not reduce A6 violations"
+    }
+  },
+  
+  "comparison_summary": {
+    "metrics_improved": [
+      {
+        "metric": "win_rate",
+        "from": "0%",
+        "to": "3.3%",
+        "significance": "low",
+        "note": "Statistically marginal with only 7-8 trades"
+      }
+    ],
+    "metrics_worsened": [
+      {
+        "metric": "total_trades",
+        "from": 8,
+        "to": 7,
+        "significance": "medium",
+        "note": "Reduced opportunity set"
+      },
+      {
+        "metric": "drawdown",
+        "from": "12.4%",
+        "to": "13.9%",
+        "significance": "high",
+        "note": "Increased risk exposure by 12%"
+      },
+      {
+        "metric": "retorno",
+        "from": "-12.12%",
+        "to": "-13.83%",
+        "significance": "high",
+        "note": "Increased losses by 14%"
+      }
+    ],
+    "metrics_unchanged": [
+      {
+        "metric": "ca_passing",
+        "value": "3/8 (37.5%)",
+        "significance": "high",
+        "note": "Critical compliance metric unchanged"
+      },
+      {
+        "metric": "violaciones_a6",
+        "value": 1,
+        "significance": "high",
+        "note": "Axiom 6 violations persist"
+      }
+    ]
+  },
+  
+  "trade_offs": [
+    {
+      "trade_off_id": 1,
+      "description": "Trade Frequency vs Win Rate",
+      "gain": "+3.3% win rate (from 0%)",
+      "cost": "-12.5% trade opportunities (8→7)",
+      "net_assessment": "Negative - minimal win rate gain does not compensate for reduced opportunities",
+      "impact_level": "medium"
+    },
+    {
+      "trade_off_id": 2,
+      "description": "Selectivity vs Drawdown",
+      "gain": "More selective entries (direction filter)",
+      "cost": "+12.1% drawdown (12.4%→13.9%)",
+      "net_assessment": "Negative - filter increased risk instead of reducing it",
+      "impact_level": "high"
+    },
+    {
+      "trade_off_id": 3,
+      "description": "Entry Quality vs Returns",
+      "gain": "Theoretical better entry timing",
+      "cost": "-14.1% returns (-12.12%→-13.83%)",
+      "net_assessment": "Negative - no realized benefit from direction filter",
+      "impact_level": "high"
+    }
+  ],
+  
+  "cost_benefit_analysis": {
+    "direction_filter_cost": {
+      "reduced_opportunities": -12.50,
+      "increased_drawdown": 12.10,
+      "increased_losses": 14.11,
+      "total_cost_score": -38.71
+    },
+    "direction_filter_benefit": {
+      "win_rate_improvement": 3.3,
+      "theoretical_entry_quality": "unquantified",
+      "total_benefit_score": 3.3
+    },
+    "net_assessment": {
+      "score": -35.41,
+      "verdict": "Strongly Negative",
+      "confidence": "high",
+      "interpretation": "Direction filter (1B.4) adds cost without meaningful benefit"
+    }
+  },
+  
+  "root_cause_hypothesis": [
+    {
+      "hypothesis": "Direction filter threshold (≤2%) may be too restrictive",
+      "evidence": "Reduced trade count suggests filter is filtering valid opportunities",
+      "test": "Relax threshold to ≤3% or ≤5% and retest"
+    },
+    {
+      "hypothesis": "Direction filter logic may have implementation bug",
+      "evidence": "Increased drawdown contradicts filter's protective intent",
+      "test": "Review direction filter code for logic errors"
+    },
+    {
+      "hypothesis": "Underlying strategy issues remain unaddressed",
+      "evidence": "CA passing unchanged at 3/8, A6 violations persist",
+      "test": "Focus on core regime detection and confidence calculation"
+    }
+  ],
+  
+  "recommendation": {
+    "action": "revert",
+    "confidence": "high",
+    "rationale": "Iteration 1B.4 (Direction Filter) shows negative cost-benefit ratio. All critical metrics either worsened or remained unchanged. The marginal win rate improvement (0%→3.3%) does not justify increased drawdown (+12.1%), increased losses (+14.1%), and reduced opportunities (-12.5%). Revert to 1B.3 and investigate alternative improvements.",
+    "alternative_actions": [
+      {
+        "action": "modify",
+        "description": "If keeping direction filter, relax threshold from ≤2% to ≤5% and retest",
+        "priority": "secondary"
+      },
+      {
+        "action": "investigate",
+        "description": "Debug direction filter implementation for potential logic errors causing increased drawdown",
+        "priority": "high"
+      }
+    ],
+    "next_steps": [
+      "Revert to 1B.3 baseline",
+      "Investigate root cause of 0% win rate in both iterations",
+      "Review regime_validator.py for threshold issues",
+      "Analyze losing trades to identify common patterns",
+      "Consider alternative filters (volatility, volume, momentum)"
+    ]
+  },
+  
+  "visual_comparison": {
+    "ascii_bar_chart": "```\nMETRIC COMPARISON: 1B.3 vs 1B.4\n================================\n\nTotal Trades:\n  1B.3: ████████ (8)\n  1B.4: ███████  (7)  ▼ -12.5%\n\nWin Rate (%):\n  1B.3:          (0%)\n  1B.4: █        (3.3%)  ▲ +3.3pp\n\nDrawdown (%):\n  1B.3: ████████████ (12.4%)\n  1B.4: ██████████████ (13.9%)  ▼ +12.1%\n\nReturn (%):\n  1B.3: ▓▓▓▓▓▓▓▓▓▓▓▓ (-12.12%)\n  1B.4: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓ (-13.83%)  ▼ -14.1%\n\nCA Passing:\n  1B.3: ███░░░░░ (3/8 = 37.5%)\n  1B.4: ███░░░░░ (3/8 = 37.5%)  ● unchanged\n\nA6 Violations:\n  1B.3: █ (1)\n  1B.4: █ (1)  ● unchanged\n\nLEGEND: █ 1B.4  ▓ 1B.3  ▲ improved  ▼ worsened  ● unchanged\n```\n",
+    "radar_summary": "```\n                    TOTAL TRADES\n                         8\n                    ┌────┐\n                   ╱      ╲\n                  ╱        ╲\n         WIN RATE │    ●   │ DRAWDOWN\n             3.3% │  1B.4  │ 12.4%\n                  │        │\n                  │  1B.3  │\n                  │        │\n         RETURN   │        │ CA PASSING\n           -12%   │        │ 3/8\n                  └────────┘\n                    A6 VIOL.\n                        1\n\n  ● = 1B.4 performs worse on 3/6 metrics\n  ● = 1B.4 performs better on 1/6 metrics  \n  ● = 1B.4 equal on 2/6 metrics\n```\n"
+  },
+  
+  "scorecard": {
+    "v1B3_score": {
+      "trades": 5,
+      "win_rate": 0,
+      "drawdown": 6,
+      "return": 4,
+      "ca_compliance": 4,
+      "a6_compliance": 4,
+      "total": 23,
+      "grade": "F"
+    },
+    "v1B4_score": {
+      "trades": 4,
+      "win_rate": 1,
+      "drawdown": 5,
+      "return": 3,
+      "ca_compliance": 4,
+      "a6_compliance": 4,
+      "total": 21,
+      "grade": "F"
+    },
+    "winner": "1B.3 (by narrow margin)",
+    "note": "Both iterations fail to meet minimum viability thresholds"
+  }
+}

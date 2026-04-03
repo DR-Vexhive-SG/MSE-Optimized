@@ -1,0 +1,13 @@
+{
+  "initial_state": {
+    "total_patterns": 30,
+    "crystallized": 2,
+    "avg_confidence": 0.5893333333333334
+  },
+  "timestamp": 1775000362.0090735,
+  "runs_planned": 3,
+  "expected_outcome": {
+    "crystallized_after_run3": "\u226525",
+    "win_rate_after_run3": "\u226554%"
+  }
+}

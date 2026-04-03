@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-04-03T03:19:34.718754",
+  "top_3_pairs": [
+    {
+      "symbol": "REPBTC",
+      "score": 0.6345714285714286,
+      "win_rate": 42.857142857142854,
+      "sharpe_ratio": -62.80534060258928,
+      "total_return": -20.58736729351972
+    },
+    {
+      "symbol": "NEOUSD",
+      "score": 0.6252,
+      "win_rate": 100.0,
+      "sharpe_ratio": -20.216092704657,
+      "total_return": -19.36428682589636
+    },
+    {
+      "symbol": "ETPUSD",
+      "score": 0.5451692307692309,
+      "win_rate": 76.92307692307693,
+      "sharpe_ratio": -61.46452010957166,
+      "total_return": -19.721965638003912
+    }
+  ]
+}

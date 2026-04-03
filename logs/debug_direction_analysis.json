@@ -1,0 +1,50 @@
+{
+  "total_trades": 3,
+  "losing_trades": 3,
+  "win_rate": 0.0,
+  "range_buy_low_trades": 2,
+  "range_sell_high_trades": 1,
+  "direction_analysis": {
+    "range_buy_low": [
+      {
+        "entry_price": 100.5,
+        "range_low": 98.0,
+        "range_high": 102.0,
+        "deviation_from_low_pct": 2.55,
+        "correct_direction": false,
+        "pnl": -1.5,
+        "exit_price": 99.0
+      },
+      {
+        "entry_price": 101.2,
+        "range_low": 98.0,
+        "range_high": 102.0,
+        "deviation_from_low_pct": 3.27,
+        "correct_direction": false,
+        "pnl": -1.7,
+        "exit_price": 99.5
+      }
+    ],
+    "range_sell_high": [
+      {
+        "entry_price": 101.8,
+        "range_low": 98.0,
+        "range_high": 102.0,
+        "deviation_from_high_pct": 0.2,
+        "correct_direction": true,
+        "pnl": -1.2,
+        "exit_price": 103.0
+      }
+    ]
+  },
+  "summary": {
+    "range_buy_correct_pct": 0.0,
+    "range_sell_correct_pct": 100.0,
+    "avg_deviation_buy": 2.91,
+    "avg_deviation_sell": 0.2
+  },
+  "hypothesis_confirmed": "H2",
+  "recommendation": "Ajustar rolling_window en pattern_detector para c\u00e1lculo correcto de range_low/range_high",
+  "iteration": "1B.3",
+  "timestamp": "2026-03-28T22:43:11.323549"
+}

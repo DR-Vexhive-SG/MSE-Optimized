@@ -1,0 +1,6 @@
+=== ANÁLISIS DE DB ===
+Total patrones: 105
+Tipo de patrón: <class 'dict'>
+Duplicados: 15
+Cristalizados: 3
+E(pt) range: 0.402 - 1.000
