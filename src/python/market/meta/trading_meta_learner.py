@@ -213,13 +213,16 @@ class TradingMetaLearner:
             Tuple[str, torch.Tensor]: Estrategia seleccionada, log_prob
         """
         # Calcular scores por estrategia
+        # 1D.7 F5 FIX: Dar score base mínimo a TODAS las estrategias
+        # Antes: BULL/BEAR/LATERAL = 0.0 si no hay patterns → softmax colapsa
+        # Ahora: Score mínimo 0.30 para permitir exploración
         scores = {
-            'BULL': 0.0,
-            'BEAR': 0.0,
-            'LATERAL': 0.0,
+            'BULL': 0.30,  # 1D.7 F5: Score mínimo (antes 0.0)
+            'BEAR': 0.30,  # 1D.7 F5: Score mínimo (antes 0.0)
+            'LATERAL': 0.30,  # 1D.7 F5: Score mínimo (antes 0.0)
             'MARKET_NEUTRAL': 0.50  # Base
         }
-        
+
         # Sumar E(pt) por estrategia
         for pattern in patterns:
             if pattern.regime.value == 'bull':

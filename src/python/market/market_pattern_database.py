@@ -139,7 +139,7 @@ class MarketStoredPattern:
             else:
                 self.episodes_without_improvement += 1
 
-    def check_crystallization(self, threshold: float = 0.95) -> bool:  # 1D.5 DEBUG: 0.70 → 0.95 (1B.16 baseline)
+    def check_crystallization(self, threshold: float = CRYSTALLIZATION_THRESHOLD) -> bool:  # 1D.7 FIX: 0.95 → 0.70 (CRYSTALLIZATION_THRESHOLD)
         """
         Q4: Verificar si debe cristalizar.
 
