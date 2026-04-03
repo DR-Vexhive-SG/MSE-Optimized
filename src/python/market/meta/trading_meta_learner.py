@@ -527,8 +527,9 @@ class TradingMetaLearner:
                 if updated_count == 1:
                     print(f"[MetaLearner DEBUG] Pattern {pattern_id}: confidence {initial_conf:.3f} → {pattern.confidence:.3f} (Δ={pattern.confidence - initial_conf:+.3f}), pnl_pct={pnl_pct:+.4f}, updated {updated_count} patterns")
 
-                # Verificar cristalización (Q4) - 1D.7 FIX: Usar CRYSTALLIZATION_THRESHOLD=0.70
-                if pattern.confidence > 0.70 and not pattern.crystallized:
+                # Verificar cristalización (Q4) - FIX F5: Usar constante CRYSTALLIZATION_THRESHOLD
+                from src.python.market.market_pattern_database import CRYSTALLIZATION_THRESHOLD
+                if pattern.confidence > CRYSTALLIZATION_THRESHOLD and not pattern.crystallized:
                     pattern.crystallized = True
                     pattern.is_soft = False
                     print(f"[MetaLearner DEBUG] Pattern {pattern_id}: CRYSTALLIZED!")
