@@ -993,21 +993,36 @@ class TradingBotAutonomous(TradingBot):
 
             # 1D.7 DEBUG: Log pattern_used
             pattern_id = getattr(last_trade, 'pattern_used', None)
-            print(f"[1D.7 DEBUG] Closing trade: pattern_used={pattern_id}, pnl={last_trade.pnl_pct:.2f}%")
+            pnl_pct_value = last_trade.pnl_pct if last_trade.pnl_pct else 0.0
+            success = pnl_pct_value > 0
+
+            # F7: Learning logging
+            print(f"[Learning] Trade cerrado: pattern={pattern_id}, PnL={pnl_pct_value:.2f}%, success={success}")
 
             # Convertir pnl_pct de porcentaje a decimal (ej: 5.2% → 0.052)
-            pnl_pct_decimal = last_trade.pnl_pct / 100.0 if last_trade.pnl_pct else 0.0
+            pnl_pct_decimal = pnl_pct_value / 100.0 if pnl_pct_value else 0.0
 
             # Actualizar E(pt) del patrón usado
             if pattern_id and pattern_id != 'unknown':
+                # Get pattern before update
+                pattern_before = None
+                for p in self.pattern_db.stored_patterns:
+                    if p.pattern_type == pattern_id:
+                        pattern_before = p
+                        break
+
                 self.update_pattern_effectiveness(
                     pattern_id=pattern_id,
                     pnl_pct=pnl_pct_decimal,
                     success_threshold=0.0
                 )
-                print(f"[1D.7 DEBUG] E(pt) updated for {pattern_id}")
+
+                # F7: Log E(pt) after update
+                if pattern_before:
+                    print(f"[Learning] E(pt) updated: {pattern_before.confidence:.3f} → {pattern_before.confidence + (pnl_pct_decimal * 0.25 if success else -pnl_pct_decimal * 0.10):.3f}, crystallized={pattern_before.crystallized}")
+                print(f"[Learning] E(pt) updated for {pattern_id}")
             else:
-                print(f"[1D.7 DEBUG] ⚠️ pattern_used is None/unknown, skipping E(pt) update")
+                print(f"[Learning] ⚠️ pattern_used is None/unknown, skipping E(pt) update")
 
         # REINFORCE: Registrar episodio con PnL REAL (FIX: antes se registraba con pnl=0)
         # Usar información almacenada cuando se abrió la posición
