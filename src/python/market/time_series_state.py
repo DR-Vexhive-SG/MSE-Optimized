@@ -99,16 +99,23 @@ class TimeSeriesState:
     
     def _load_from_dataframe(self, df: pd.DataFrame):
         """Cargar desde DataFrame."""
-        # Ordenar por timestamp
-        df = df.sort_values('unix').reset_index(drop=True)
+        # Ordenar por timestamp (soportar 'unix', 'timestamp', o primera columna)
+        timestamp_col = 'unix' if 'unix' in df.columns else ('timestamp' if 'timestamp' in df.columns else df.columns[0])
+        df = df.sort_values(timestamp_col).reset_index(drop=True)
         
-        # Extraer columnas
-        self.timestamps = df['unix'].values
-        self.opens = df['open'].values
-        self.highs = df['high'].values
-        self.lows = df['low'].values
-        self.closes = df['close'].values
-        self.volumes = df['Volume BTC'].values if 'Volume BTC' in df.columns else np.zeros(len(df))
+        # Extraer columnas OHLCV (soportar múltiples formatos de nombres)
+        open_col = 'open' if 'open' in df.columns else ('Open' if 'Open' in df.columns else df.columns[1] if len(df.columns) > 1 else None)
+        high_col = 'high' if 'high' in df.columns else ('High' if 'High' in df.columns else df.columns[2] if len(df.columns) > 2 else None)
+        low_col = 'low' if 'low' in df.columns else ('Low' if 'Low' in df.columns else df.columns[3] if len(df.columns) > 3 else None)
+        close_col = 'close' if 'close' in df.columns else ('Close' if 'Close' in df.columns else df.columns[4] if len(df.columns) > 4 else None)
+        volume_col = 'Volume BTC' if 'Volume BTC' in df.columns else ('volume' if 'volume' in df.columns else ('Volume' if 'Volume' in df.columns else df.columns[5] if len(df.columns) > 5 else None))
+        
+        self.timestamps = df[timestamp_col].values
+        self.opens = df[open_col].values if open_col else np.zeros(len(df))
+        self.highs = df[high_col].values if high_col else np.zeros(len(df))
+        self.lows = df[low_col].values if low_col else np.zeros(len(df))
+        self.closes = df[close_col].values if close_col else np.zeros(len(df))
+        self.volumes = df[volume_col].values if volume_col else np.zeros(len(df))
         
         # Convertir a lista de MarketState
         self.market_states = []

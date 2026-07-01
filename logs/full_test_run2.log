@@ -1,0 +1,324 @@
+OpenBLAS WARNING - could not determine the L2 cache size on this system, assuming 256k
+======================================================================
+TEST MULTI-MARKET AUTONOMOUS - MSE v5.0.2-R
+======================================================================
+Fecha: 2026-07-01T12:22:19.079885
+  [MarketPatternDB] Archivo no encontrado: data/patterns/hybrid_pattern_db.pkl.gz. Iniciando vacío.
+  [MarketPatternDB] Creados 15 patrones predefinidos (Phase 1C.7-1C.14: 6 base + 8 enrichment)
+[MultiMarketTester] Initialized with 15 patterns
+[MultiMarketTester] Initial crystallized: 0
+[MultiMarketTester] DB path: data/patterns/hybrid_pattern_db.pkl.gz
+
+Archivos encontrados: 12
+
+[1/12] Procesando ADA_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(ADA_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ ADA_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[2/12] Procesando ATOM_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(ATOM_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ ATOM_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[3/12] Procesando AVAX_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(AVAX_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ AVAX_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[4/12] Procesando BTC_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(BTC_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ BTC_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[5/12] Procesando DOT_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(DOT_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ DOT_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[6/12] Procesando ETH_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(ETH_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ ETH_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[7/12] Procesando LINK_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(LINK_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ LINK_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[8/12] Procesando MATIC_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(MATIC_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ MATIC_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[9/12] Procesando REP_BTC.csv...
+
+[ERROR] Exception in run_backtest_for_pair(REP_BTC): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ REP_BTC: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[10/12] Procesando SOL_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(SOL_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ SOL_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[11/12] Procesando UNI_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(UNI_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ UNI_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[12/12] Procesando XRP_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(XRP_USDT): 'unix'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 103, in _load_from_dataframe
+    df = df.sort_values('unix').reset_index(drop=True)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 7196, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'unix'
+
+  ⚠️ XRP_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+============================================================
+[1D.5 PERSISTENCE DEBUG - FINAL]
+  self.pattern_db id: 140645248040784
+  self.pattern_db.stored_patterns id: 140645239867200
+  Patterns in DB: 15
+  Crystallized in DB: 0
+  Crystallized patterns: []
+============================================================
+  [MarketPatternDB] Persistencia: 0 patrones cristalizados de 15 totales
+  [MarketPatternDB] Guardados 15 patrones en data/patterns/hybrid_pattern_db.pkl.gz
+  [MarketPatternDB] Pruned 0 unproven emergent patterns
+
+============================================================
+[MultiMarketTester] ✅ PERSISTENCE VALIDATION (1C.8)
+============================================================
+  Initial patterns: 15
+  Final patterns: 15
+  Patterns added: 0
+  Initial crystallized: 0
+  Final crystallized: 0
+  Crystallized added: 0
+  DB saved to: data/patterns/hybrid_pattern_db.pkl.gz
+
+  Persistence check: ✅ PASSED
+  Crystallization check: ❌ FAILED
+============================================================
+
+============================================================
+[MultiMarketTester] ⚠️ No meta_learner available for saving
+============================================================
+
+  💾 Resultados guardados en: logs/multi_market_autonomous_results.json
+
+======================================================================
+RESUMEN DE CRITERIOS DE ACEPTACIÓN (CA1-CA8)
+======================================================================
+
+  CA1 (Patrones emergentes ≥5):        ❌ FAILED
+  CA2 (Auto-selección 100%):           ❌ FAILED
+  CA3 (Win rate ≥55%):                 ❌ FAILED
+  CA4 (Sharpe ratio ≥1.0):             ❌ FAILED
+  CA5 (Max drawdown <15%):             ❌ FAILED
+  CA6 (Violaciones axiomáticas = 0):   ❌ FAILED
+  CA7 (Convergencia Φ ≤50):            ❌ FAILED
+  CA8 (Cristalización patrones ≥2):    ❌ FAILED
+
+======================================================================
+⚠️ TEST MULTI-MARKET AUTONOMOUS PARCIAL (0/8 CA)
+======================================================================
+
+Estadísticas Globales:
+  Win rate promedio: 0.0%
+  Sharpe ratio promedio: 0.00
+  Drawdown máximo promedio: 0.0%
+  Retorno promedio: 0.00%
+  Total trades: 0
+  Patrones emergentes: 0
+  Patrones cristalizados: 0
+  Violaciones axiomáticas: 0

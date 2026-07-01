@@ -1,0 +1,468 @@
+OpenBLAS WARNING - could not determine the L2 cache size on this system, assuming 256k
+======================================================================
+TEST MULTI-MARKET AUTONOMOUS - MSE v5.0.2-R
+======================================================================
+Fecha: 2026-07-01T12:22:40.439003
+  [MarketPatternDB] Cargados 15 patrones
+  [MarketPatternDB] Creados 15 patrones predefinidos (Phase 1C.7-1C.14: 6 base + 8 enrichment)
+[MultiMarketTester] Initialized with 30 patterns
+[MultiMarketTester] Initial crystallized: 0
+[MultiMarketTester] DB path: data/patterns/hybrid_pattern_db.pkl.gz
+
+Archivos encontrados: 12
+
+[1/12] Procesando ADA_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(ADA_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ ADA_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[2/12] Procesando ATOM_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(ATOM_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ ATOM_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[3/12] Procesando AVAX_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(AVAX_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ AVAX_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[4/12] Procesando BTC_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(BTC_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ BTC_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[5/12] Procesando DOT_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(DOT_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ DOT_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[6/12] Procesando ETH_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(ETH_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ ETH_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[7/12] Procesando LINK_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(LINK_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ LINK_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[8/12] Procesando MATIC_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(MATIC_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ MATIC_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[9/12] Procesando REP_BTC.csv...
+
+[ERROR] Exception in run_backtest_for_pair(REP_BTC): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ REP_BTC: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[10/12] Procesando SOL_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(SOL_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ SOL_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[11/12] Procesando UNI_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(UNI_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ UNI_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+[12/12] Procesando XRP_USDT.csv...
+
+[ERROR] Exception in run_backtest_for_pair(XRP_USDT): 'Open'
+[ERROR] Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Open'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tests/test_multi_market_autonomous.py", line 167, in run_backtest_for_pair
+    state = TimeSeriesState(data=df, symbol=symbol, window_size=20)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/python/market/time_series_state.py", line 84, in __init__
+    self._load_from_dataframe(data)
+  File "/workspace/src/python/market/time_series_state.py", line 108, in _load_from_dataframe
+    self.opens = df['open'].values if 'open' in df.columns else df['Open'].values
+                                                                ~~^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Open'
+
+  ⚠️ XRP_USDT: 0 barras, régimen: N/A, win_rate=0.0%, return=0.00%
+
+============================================================
+[1D.5 PERSISTENCE DEBUG - FINAL]
+  self.pattern_db id: 139792186559472
+  self.pattern_db.stored_patterns id: 139792186330560
+  Patterns in DB: 30
+  Crystallized in DB: 0
+  Crystallized patterns: []
+============================================================
+  [MarketPatternDB] Persistencia: 0 patrones cristalizados de 30 totales
+  [MarketPatternDB] Guardados 30 patrones en data/patterns/hybrid_pattern_db.pkl.gz
+  [MarketPatternDB] Pruned 0 unproven emergent patterns
+
+============================================================
+[MultiMarketTester] ✅ PERSISTENCE VALIDATION (1C.8)
+============================================================
+  Initial patterns: 30
+  Final patterns: 30
+  Patterns added: 0
+  Initial crystallized: 0
+  Final crystallized: 0
+  Crystallized added: 0
+  DB saved to: data/patterns/hybrid_pattern_db.pkl.gz
+
+  Persistence check: ✅ PASSED
+  Crystallization check: ❌ FAILED
+============================================================
+
+============================================================
+[MultiMarketTester] ⚠️ No meta_learner available for saving
+============================================================
+
+  💾 Resultados guardados en: logs/multi_market_autonomous_results.json
+
+======================================================================
+RESUMEN DE CRITERIOS DE ACEPTACIÓN (CA1-CA8)
+======================================================================
+
+  CA1 (Patrones emergentes ≥5):        ❌ FAILED
+  CA2 (Auto-selección 100%):           ❌ FAILED
+  CA3 (Win rate ≥55%):                 ❌ FAILED
+  CA4 (Sharpe ratio ≥1.0):             ❌ FAILED
+  CA5 (Max drawdown <15%):             ❌ FAILED
+  CA6 (Violaciones axiomáticas = 0):   ❌ FAILED
+  CA7 (Convergencia Φ ≤50):            ❌ FAILED
+  CA8 (Cristalización patrones ≥2):    ❌ FAILED
+
+======================================================================
+⚠️ TEST MULTI-MARKET AUTONOMOUS PARCIAL (0/8 CA)
+======================================================================
+
+Estadísticas Globales:
+  Win rate promedio: 0.0%
+  Sharpe ratio promedio: 0.00
+  Drawdown máximo promedio: 0.0%
+  Retorno promedio: 0.00%
+  Total trades: 0
+  Patrones emergentes: 0
+  Patrones cristalizados: 0
+  Violaciones axiomáticas: 0

@@ -1,0 +1,31 @@
+OpenBLAS WARNING - could not determine the L2 cache size on this system, assuming 256k
+======================================================================
+TEST MULTI-MARKET AUTONOMOUS - MSE v5.0.2-R
+======================================================================
+Fecha: 2026-07-01T12:21:48.200927
+  [MarketPatternDB] Archivo no encontrado: data/patterns/hybrid_pattern_db.pkl.gz. Iniciando vacío.
+  [MarketPatternDB] Creados 15 patrones predefinidos (Phase 1C.7-1C.14: 6 base + 8 enrichment)
+[MultiMarketTester] Initialized with 15 patterns
+[MultiMarketTester] Initial crystallized: 0
+[MultiMarketTester] DB path: data/patterns/hybrid_pattern_db.pkl.gz
+
+Archivos encontrados: 0
+
+  💾 Resultados guardados en: logs/multi_market_autonomous_results.json
+
+======================================================================
+RESUMEN DE CRITERIOS DE ACEPTACIÓN (CA1-CA8)
+======================================================================
+
+  CA1 (Patrones emergentes ≥5):        ❌ FAILED
+  CA2 (Auto-selección 100%):           ❌ FAILED
+  CA3 (Win rate ≥55%):                 ❌ FAILED
+  CA4 (Sharpe ratio ≥1.0):             ❌ FAILED
+  CA5 (Max drawdown <15%):             ❌ FAILED
+  CA6 (Violaciones axiomáticas = 0):   ❌ FAILED
+  CA7 (Convergencia Φ ≤50):            ❌ FAILED
+  CA8 (Cristalización patrones ≥2):    ❌ FAILED
+
+======================================================================
+⚠️ TEST MULTI-MARKET AUTONOMOUS PARCIAL (0/8 CA)
+======================================================================

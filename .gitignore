@@ -1,59 +1,7 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
-env/
-ENV/
-.venv
+```
+# Compressed files
+*.gz
 
-# IDEs
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# Machine Learning
-*.pth
-*.pt
-*.onnx
-*.h5
-
-# Logs
-logs/*.log
-logs/test_output_*.log
-logs/debug_*.log
-logs/*_metrics.json
-logs/*_results.json
-logs/iteration_*/
-
-# Data (keep pattern DBs, exclude market data)
-data/market/*.csv
-data/*.json
-data/patterns/test_*.pkl.gz
-data/patterns/*.backup*
-
-# Documentation archive
-docs/archive/
-docs/v1/
-docs/v2/
-docs/v3/
-docs/v4/
-
-# Scripts archive (keep directory, ignore contents)
-scripts/archive/*
-!scripts/archive/.gitkeep
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Temporary files
-*.tmp
-*.bak
+# Test result data files
+data/test_results/
+```
