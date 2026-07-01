@@ -119,7 +119,6 @@ class TradingMetaLearner:
             'LATERAL': np.random.uniform(0.8, 1.2),
             'MARKET_NEUTRAL': np.random.uniform(0.8, 1.2)
         }
-        print(f"[1D.6 INIT] Strategy weights initialized with noise: {self.strategy_weights}")
 
         # Estadísticas
         self.stats = {
@@ -154,10 +153,8 @@ class TradingMetaLearner:
             with open(policy_path, 'wb') as f:
                 pickle.dump(data, f)
 
-            print(f"[MetaLearner] ✅ Policy saved to {policy_path}")
-            print(f"[MetaLearner] Strategy weights: {self.strategy_weights}")
         except Exception as e:
-            print(f"[MetaLearner] ❌ Error saving policy: {e}")
+            pass  # Silently ignore save errors
 
     def load_policy(self, path: str = "data/patterns/meta_policy.pkl"):
         """
@@ -169,7 +166,6 @@ class TradingMetaLearner:
         policy_path = Path(path)
 
         if not policy_path.exists():
-            print(f"[MetaLearner] ℹ️ No saved policy found, using defaults")
             return False
 
         try:
@@ -181,12 +177,9 @@ class TradingMetaLearner:
             self.meta_params = MetaParameters.from_dict(data['meta_params'])
             self.stats.update(data.get('stats', {}))
 
-            print(f"[MetaLearner] ✅ Policy loaded from {policy_path}")
-            print(f"[MetaLearner] Strategy weights: {self.strategy_weights}")
             return True
 
         except Exception as e:
-            print(f"[MetaLearner] ❌ Error loading policy: {e}")
             return False
     
     def select_strategy(self, state_features: Dict[str, Any],
@@ -243,7 +236,6 @@ class TradingMetaLearner:
         # Aplicar temperatura y softmax
         tau = self.meta_params.temperature
         # 1D.6 DEBUG: Imprimir tau antes del softmax
-        print(f"[1D.6 SOFTMAX] tau={tau:.4f}, scores={scores_tensor.tolist()}")
         logits = scores_tensor / tau
         probs = F.softmax(logits, dim=-1)
         
@@ -258,8 +250,6 @@ class TradingMetaLearner:
         log_prob = torch.log(clipped_prob)
 
         # [DEBUG] Log selection and log_prob recording
-        print(f"[MetaLearner DEBUG] select_strategy: selected={selected_strategy}, log_prob={log_prob.item():.4f}, prob={probs[strategy_idx].item():.6f}")
-        print(f"[MetaLearner DEBUG] log_probs_history length BEFORE: {len(self.log_probs_history)}")
 
         # NOTA: REMOVED self.strategy_weights[selected_strategy] *= 1.01
         # FIX: This was causing unbounded weight growth. REINFORCE gradients should be the ONLY update mechanism.
@@ -295,7 +285,6 @@ class TradingMetaLearner:
         self.stats['total_episodes'] += 1
 
         # [DEBUG] Log episode recording
-        print(f"[MetaLearner DEBUG] record_episode: strategy={strategy}, pnl={pnl:.2f}, log_probs_history len={len(self.log_probs_history)}, rewards_history len={len(self.rewards_history)}")
 
         # Actualizar baseline
         self._update_baseline(pnl)
@@ -343,41 +332,29 @@ class TradingMetaLearner:
             Diccionario con gradientes aproximados
         """
         # [DEBUG] Log update process start
-        print(f"[MetaLearner DEBUG] update_strategy_policy called")
-        print(f"[MetaLearner DEBUG] log_probs_history length: {len(self.log_probs_history)}")
-        print(f"[MetaLearner DEBUG] rewards_history length: {len(self.rewards_history)}")
-        print(f"[MetaLearner DEBUG] episodes length: {len(self.episodes)}")
-        print(f"[MetaLearner DEBUG] strategy_weights BEFORE method: {self.strategy_weights}")
 
         if not self.log_probs_history:
-            print(f"[MetaLearner DEBUG] EXIT: log_probs_history is empty")
             return {}
 
         if len(self.log_probs_history) < 2:
-            print(f"[MetaLearner DEBUG] WARNING: Only {len(self.log_probs_history)} episodes, waiting for more data")
             # Don't exit - still process with available data
+            pass
 
         # Calcular retornos
         returns = self.calculate_returns()
 
         if returns.numel() == 0:
-            print(f"[MetaLearner DEBUG] EXIT: returns is empty")
             return {}
 
-        print(f"[MetaLearner DEBUG] returns: {returns}, numel: {returns.numel()}")
 
         # Calcular advantages (G - b)
         advantages = returns - self.baseline
 
-        print(f"[MetaLearner DEBUG] baseline: {self.baseline:.4f}")
-        print(f"[MetaLearner DEBUG] advantages: {advantages}, mean: {advantages.mean().item():.4f}")
 
         # Calcular pérdida REINFORCE
         log_probs = torch.stack(self.log_probs_history)
         loss = -(log_probs * advantages.detach()).mean()
 
-        print(f"[MetaLearner DEBUG] loss: {loss.item():.6f}")
-        print(f"[MetaLearner DEBUG] log_probs: {log_probs}, mean: {log_probs.mean().item():.4f}")
 
         # FIX: Calculate per-strategy gradients based on actual episode advantages
         # Group advantages by strategy
@@ -390,7 +367,6 @@ class TradingMetaLearner:
                 if strategy_key in strategy_advantages:
                     strategy_advantages[strategy_key].append(advantages[i].item())
 
-        print(f"[MetaLearner DEBUG] strategy_advantages: {strategy_advantages}")
 
         # Calcular gradientes por estrategia
         gradients = {}
@@ -399,14 +375,10 @@ class TradingMetaLearner:
                 # Gradiente proporcional al advantage promedio de esta estrategia
                 avg_adv = np.mean(strategy_advantages[strategy])
                 gradients[f'weight_{strategy}'] = avg_adv * self.learning_rate
-                print(f"[MetaLearner DEBUG] {strategy}: avg_advantage={avg_adv:.4f}, gradient={gradients[f'weight_{strategy}']:.6f}")
             else:
                 gradients[f'weight_{strategy}'] = 0.0
-                print(f"[MetaLearner DEBUG] {strategy}: no episodes, gradient=0.0")
 
         # [DEBUG] Log before weight update
-        print(f"[MetaLearner DEBUG] strategy_weights BEFORE update: {self.strategy_weights}")
-        print(f"[MetaLearner DEBUG] gradients: {gradients}")
 
         # Actualizar weights
         for strategy, grad in gradients.items():
@@ -418,10 +390,8 @@ class TradingMetaLearner:
             self.strategy_weights[strategy_name] = max(0.1, min(10.0, self.strategy_weights[strategy_name]))
             clamped_weight = self.strategy_weights[strategy_name]
             delta = clamped_weight - old_weight
-            print(f"[MetaLearner DEBUG] {strategy_name}: {old_weight:.6f} + {grad:.6f} = {new_weight:.6f} (clamped: {clamped_weight:.6f}, Δ={delta:+.6f})")
 
         # [DEBUG] Log after weight update
-        print(f"[MetaLearner DEBUG] strategy_weights AFTER: {self.strategy_weights}")
 
         # Actualizar meta-parámetros si se proporcionan
         if meta_params:
@@ -525,16 +495,13 @@ class TradingMetaLearner:
 
                 # [DEBUG] Log pattern update (solo primer patrón actualizado)
                 if updated_count == 1:
-                    print(f"[MetaLearner DEBUG] Pattern {pattern_id}: confidence {initial_conf:.3f} → {pattern.confidence:.3f} (Δ={pattern.confidence - initial_conf:+.3f}), pnl_pct={pnl_pct:+.4f}, updated {updated_count} patterns")
+                    pass
 
                 # Verificar cristalización (Q4) - FIX F5: Usar constante CRYSTALLIZATION_THRESHOLD
                 from src.python.market.market_pattern_database import CRYSTALLIZATION_THRESHOLD
                 if pattern.confidence > CRYSTALLIZATION_THRESHOLD and not pattern.crystallized:
                     pattern.crystallized = True
                     pattern.is_soft = False
-                    print(f"[MetaLearner DEBUG] Pattern {pattern_id}: CRYSTALLIZED!")
-                    print(f"[MetaLearner DEBUG] self.pattern_db id: {id(self.pattern_db)}")
-                    print(f"[MetaLearner DEBUG] Crystallized in DB: {sum(1 for p in self.pattern_db.stored_patterns if p.crystallized)}")
 
                 break
 

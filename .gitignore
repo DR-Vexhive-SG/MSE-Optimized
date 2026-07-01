@@ -1,59 +1,30 @@
+```
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+*.pyd
 .Python
-venv/
-env/
-ENV/
-.venv
-
-# IDEs
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# Machine Learning
-*.pth
-*.pt
-*.onnx
-*.h5
+*.so
+*.egg-info/
 
 # Logs
-logs/*.log
-logs/test_output_*.log
-logs/debug_*.log
-logs/*_metrics.json
-logs/*_results.json
-logs/iteration_*/
+*.log
 
-# Data (keep pattern DBs, exclude market data)
-data/market/*.csv
-data/*.json
-data/patterns/test_*.pkl.gz
-data/patterns/*.backup*
+# Data files (if they are temporary/generated)
+*.csv
+*.json
 
-# Documentation archive
-docs/archive/
-docs/v1/
-docs/v2/
-docs/v3/
-docs/v4/
+# Test files
+test_*.py
+tests/test_*.py
 
-# Scripts archive (keep directory, ignore contents)
-scripts/archive/*
-!scripts/archive/.gitkeep
-
-# OS
-.DS_Store
-Thumbs.db
+# Compressed files
+*.gz
+*.pkl.gz
+*.pkl
 
 # Temporary files
 *.tmp
-*.bak
+*~
+```

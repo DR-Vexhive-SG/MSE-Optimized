@@ -105,7 +105,11 @@ class MultiMarketTester:
     
     def get_market_files(self) -> List[Path]:
         """Obtener lista de archivos CSV de mercado."""
-        return sorted(self.data_dir.glob("Bitfinex_*.csv"))
+        # Support both Bitfinex_* and *_USDT/BTC naming conventions
+        files = list(self.data_dir.glob("Bitfinex_*.csv"))
+        if not files:
+            files = sorted(self.data_dir.glob("*.csv"))
+        return files
     
     def analyze_regime_distribution(self, state: TimeSeriesState) -> Dict[str, float]:
         """Analizar distribución de regímenes."""

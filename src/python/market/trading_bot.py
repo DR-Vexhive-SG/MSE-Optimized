@@ -193,6 +193,9 @@ class TradingBot:
     - Trackea métricas de rendimiento
     """
     
+    # FIX F4: Hard cap en position sizing (3.0% máximo)
+    MAX_POSITION_PCT = 0.03
+    
     def __init__(self, strategy: BotStrategy, symbol: str,
                  initial_capital: float = 10000.0,
                  pattern_db: Optional[MarketPatternDatabase] = None):
@@ -508,9 +511,9 @@ class TradingBot:
         print(f"  [TradingBot] Position sizing: confidence={pattern_confidence:.2f}, regime={regime} → {position_pct*100:.1f}% risk (base={base_position_pct*100:.1f}%, conf_mult={confidence_multiplier:.2f}, reg_mult={regime_multiplier:.2f})")
 
         # FIX F4: Hard cap validation (3.0% máximo)
-        position_pct = (position_size * price) / self.capital
-        if position_pct > self.MAX_POSITION_PCT:
-            print(f"  [TradingBot] ⚠️ Position sizing {position_pct:.1%} > MAX {self.MAX_POSITION_PCT:.1%}, reduciendo")
+        actual_position_pct = (position_size * price) / self.capital
+        if actual_position_pct > self.MAX_POSITION_PCT:
+            print(f"  [TradingBot] ⚠️ Position sizing {actual_position_pct:.1%} > MAX {self.MAX_POSITION_PCT:.1%}, reduciendo")
             position_size = (self.MAX_POSITION_PCT * self.capital) / price
 
         return max(0.001, position_size)  # Minimum 0.001
@@ -1058,6 +1061,13 @@ class TradingBotAutonomous(TradingBot):
             print(f"[1D.7 F3 DEBUG] After record_episode: log_probs_history len={len(self.meta_learner.log_probs_history)}")
         else:
             print(f"[1D.7 F3 DEBUG] ⚠️ Skipping record_episode: has_strategy={hasattr(self, 'current_strategy')}, has_log_prob={hasattr(self, 'current_log_prob')}, closed_trades={len(self.closed_trades)}")
+
+        # PERSISTENCIA: Guardar patrones aprendidos tras cada trade (Memoria a Largo Plazo)
+        try:
+            self.pattern_db.save_patterns()
+            print(f"[Memory] Pattern database saved to disk after trade close")
+        except Exception as e:
+            print(f"[Memory] ⚠️ Failed to save patterns: {e}")
 
         return close_trade
     
